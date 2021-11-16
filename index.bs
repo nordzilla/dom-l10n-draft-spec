@@ -1,5 +1,5 @@
 <pre class='metadata'>
-Title: Dom Localization
+Title: DOM Localization
 Shortname: dom-l10n
 Level: 1
 Status: DREAM
