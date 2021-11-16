@@ -1,0 +1,16 @@
+<pre class='metadata'>
+Title: Dom Localization
+Shortname: dom-l10n
+Level: 1
+Status: DREAM
+Group: MOZILLA
+URL: https://nordzilla.github.io/dom-l10n-draft-spec/
+Editor: Erik Nordin, Mozilla https://www.mozilla.org/, nordzilla@mozilla.com, https://github.com/nordzilla
+Abstract: A draft proposal for a web standard for DOM localization.
+</pre>
+
+Introduction {#intro}
+=====================
+
+This is my introduction.
+
