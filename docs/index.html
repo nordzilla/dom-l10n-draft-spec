@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version bbc364800, updated Mon Nov 15 13:57:55 2021 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
-  <meta content="d31789907013126ba957488ae4d495e1a64599e7" name="document-revision">
+  <meta content="d50c76b49d4c90ef7cafcf868adc9bdbfb0939fa" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1762,6 +1762,65 @@ a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
+<style>/* style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+</style>
 <style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
@@ -1882,18 +1941,81 @@ dfn > a.self-link::before      { content: "#"; }
         --selflink-hover-text: white;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
 </style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">DOM Localization</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2021-11-16">16 November 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2021-11-22">22 November 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://nordzilla.github.io/dom-l10n-draft-spec/">https://nordzilla.github.io/dom-l10n-draft-spec/</a>
      <dt>Issue Tracking:
-     <dd><a href="https://github.com/nordzilla/dom-l10n-draft-spec/issues/">GitHub</a>
+     <dd><a href="https://github.com/zbraniecki/dom-l10n-draft-spec/issues/">GitHub</a>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/nordzilla">Erik Nordin</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:nordzilla@mozilla.com">nordzilla@mozilla.com</a>
     </dl>
@@ -1901,7 +2023,7 @@ dfn > a.self-link::before      { content: "#"; }
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 16 November 2021,
+In addition, as of 22 November 2021,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1909,13 +2031,33 @@ Parts of this work may be from another specification document.  If so, those par
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>A draft proposal for a web standard for DOM localization.</p>
+   <p>This draft defines a proposal for a web standard for DOM localization. DOM localization is a system that allows authors and users to attach localization resources to structured documents (e.g., HTML documents). By separating the localization resources of documents from the structure, presentation and content, DOM localization enables Web applications to be localizable.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
     <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+    <li><a href="#message-format20"><span class="secno">2</span> <span class="content">Relation to MessageFormat 2.0</span></a>
+    <li>
+     <a href="#proposed-solution"><span class="secno">3</span> <span class="content">Proposed Solution</span></a>
+     <ol class="toc">
+      <li>
+       <a href="#localization-context"><span class="secno">3.1</span> <span class="content">Localization Context</span></a>
+       <ol class="toc">
+        <li><a href="#document-localization-context"><span class="secno">3.1.1</span> <span class="content">Document Localization Context</span></a>
+        <li><a href="#multiple-document-localization-contexts"><span class="secno">3.1.2</span> <span class="content">Multiple Document Localization Contexts</span></a>
+       </ol>
+      <li>
+       <a href="#localization-attributes"><span class="secno">3.2</span> <span class="content">Localization Attributes</span></a>
+       <ol class="toc">
+        <li><a href="#localization-identifier"><span class="secno">3.2.1</span> <span class="content">Localization Identifier</span></a>
+        <li><a href="#localization-arguments"><span class="secno">3.2.2</span> <span class="content">Localization Arguments</span></a>
+       </ol>
+     </ol>
+    <li><a href="#dom-api"><span class="secno">4</span> <span class="content">DOM API</span></a>
+    <li><a href="#resource-resolution"><span class="secno">5</span> <span class="content">Resource Resolution</span></a>
+    <li><a href="#attribute-localization"><span class="secno">6</span> <span class="content">Attribute Localization</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
@@ -1926,7 +2068,122 @@ Parts of this work may be from another specification document.  If so, those par
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
-   <p>This is my introduction.</p>
+   <p>Web stack composed of HTML, DOM, CSS and Javascript is commonly used to create applications with both content and user interface. One of the core value propositions of the stack is open, semantic and pluggable nature of the technology.</p>
+   <p>For example CSS provides technology to style and theme HTML documents, but also enables web browsers and third-party addons such as extensions or accessibility tools to adjust the style and theme at runtime.</p>
+   <p>In a similar way DOM localization proposes to introduce a localization component of the stack that would allow for HTML documents to be localized in a way that allows web browsers and third-party extensions to augument the experience of using the documents for the benfit of the user.
+Such an open system would allow for construction of localizable web applications which can be introspected for semantic information, augumented by external code for different forms of presentation (screen readers, VR etc.) and accessible to the global audience.</p>
+   <h2 class="heading settled" data-level="2" id="message-format20"><span class="secno">2. </span><span class="content">Relation to MessageFormat 2.0</span><a class="self-link" href="#message-format20"></a></h2>
+   <p>Unicode MessageFormat 2.0 is a new generic localization system being developed for inclusion in Unicode and JavaScript.
+We propose that the DOM localization system to be build on top of MessageFormat 2.0, giving a unified experience of localization of JavaScript applications and HTML documents.</p>
+   <h2 class="heading settled" data-level="3" id="proposed-solution"><span class="secno">3. </span><span class="content">Proposed Solution</span><a class="self-link" href="#proposed-solution"></a></h2>
+   <p>The proposed solution provides cohesive developer experience between DOM and JavaScript localization, compatible with CSS, Shadow DOM and other aspects of web stack.</p>
+   <h3 class="heading settled" data-level="3.1" id="localization-context"><span class="secno">3.1. </span><span class="content">Localization Context</span><a class="self-link" href="#localization-context"></a></h3>
+   <p>We are proposing to introduce a notion of a localization context, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of localization resources declared in the `` of the document.</p>
+   <p>Similarly to stylesheets, developers would be able to programmatically construct any number of localization contexts, as well as declaratively define them for HTML documents, shadow DOM trees etc.</p>
+   <h4 class="heading settled" data-level="3.1.1" id="document-localization-context"><span class="secno">3.1.1. </span><span class="content">Document Localization Context</span><a class="self-link" href="#document-localization-context"></a></h4>
+   <p>Default use case of a localization context would be a context declared in the `` element of a document scoped to that document and used for localization of it.</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource1.mf"</c-> <c- p>/></c->
+    <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource2.mf"</c-> <c- p>/></c->
+  <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
+</pre>
+   <h4 class="heading settled" data-level="3.1.2" id="multiple-document-localization-contexts"><span class="secno">3.1.2. </span><span class="content">Multiple Document Localization Contexts</span><a class="self-link" href="#multiple-document-localization-contexts"></a></h4>
+   <p>It could be also possible to allow for multiple localization contexts to be listed for the document to use:</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>l10n-context</c-> <c- e>name</c-><c- o>=</c-><c- s>"menu"</c-><c- p>></c->
+      <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource1.mf"</c-> <c- p>/></c->
+      <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource2.mf"</c-> <c- p>/></c->
+    <c- p>&lt;/</c-><c- f>l10n-context</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>l10n-context</c-> <c- e>name</c-><c- o>=</c-><c- s>"chrome"</c-><c- p>></c->
+      <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource1.mf"</c-> <c- p>/></c->
+      <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource3.mf"</c-> <c- p>/></c->
+    <c- p>&lt;/</c-><c- f>l10n-context</c-><c- p>></c->
+  <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
+</pre>
+   <h3 class="heading settled" data-level="3.2" id="localization-attributes"><span class="secno">3.2. </span><span class="content">Localization Attributes</span><a class="self-link" href="#localization-attributes"></a></h3>
+   <p>We are proposing to introduce a set of (potentially namespaced) attributes to HTML that would allow developers to declaratively or programmatically bind the DOM elements and fragments to localization messages.</p>
+   <p>The messages loaded into the document context(s) would be then used to localize them.</p>
+   <h4 class="heading settled" data-level="3.2.1" id="localization-identifier"><span class="secno">3.2.1. </span><span class="content">Localization Identifier</span><a class="self-link" href="#localization-identifier"></a></h4>
+   <p>Document constructed with a localization context containing a resource with a message such as (pseudo-syntax for MessageFormat 2.0 compatible resource file):</p>
+<pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>Document Header</c->
+</pre>
+   <p>can be then used to localize HTML content such as:</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-> <c- p>/></c->
+  <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
+</pre>
+   <h4 class="heading settled" data-level="3.2.2" id="localization-arguments"><span class="secno">3.2.2. </span><span class="content">Localization Arguments</span><a class="self-link" href="#localization-arguments"></a></h4>
+   <p>Second proposed core attribute is a collection of values, similar to `dataset` which contains variables passed from the developer to localization context for use when resolving a given message:</p>
+<pre class="highlight"><c- e>greetings-msg</c-> <c- o>=</c-> <c- s>Welcome, { $userName }.</c->
+</pre>
+<pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"greetings-msg"</c-> <c- e>l10n-args-userName</c-><c- o>=</c-><c- s>"John"</c-> <c- p>/></c->
+  <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
+</pre>
+   <p>The combination of those two attributes used to annotate HTML elements and fragments, together with ability to annotate the document with localization context provides the basis of the DOM localization system.</p>
+   <h2 class="heading settled" data-level="4" id="dom-api"><span class="secno">4. </span><span class="content">DOM API</span><a class="self-link" href="#dom-api"></a></h2>
+   <p>In order for the system to be accessible programmatically, DOM localization provides an API to operate on the context, and elements.</p>
+   <p>The main paradigm is a declarative annotation of elements, much like `class` is used in CSS to bind style classes to element:</p>
+<pre class="highlight"><c- a>let</c-> h1 <c- o>=</c-> document<c- p>.</c->querySelector<c- p>(</c-><c- u>"h1"</c-><c- p>);</c->
+h1<c- p>.</c->l10n<c- p>.</c->setAttributes<c- p>(</c-><c- u>"greetings-msg"</c-><c- p>,</c-> <c- p>{</c-> userName<c- o>:</c-> <c- u>"John"</c-> <c- p>});</c->
+</pre>
+   <p>This separates the programmatic annotation of the DOM tree with localization bindings, from the application of the localization, which can happen asynchornously and be synced to animation and paint frames.</p>
+   <p>In cases where the developer needs to operate on localization messages programmatically, users can access the main document’s context:</p>
+<pre class="highlight"><c- a>let</c-> msg <c- o>=</c-> <c- k>await</c-> document<c- p>.</c->l10n<c- p>.</c->formatMessage<c- p>(</c-><c- u>"greetings-msg"</c-><c- p>,</c-> <c- p>{</c->
+  userName<c- o>:</c-> <c- u>"Mary"</c-><c- p>,</c->
+<c- p>});</c->
+</pre>
+   <p>or construct a custom one:</p>
+<pre class="highlight"><c- a>let</c-> ctx <c- o>=</c-> <c- k>new</c-> LocalizationContext<c- p>([</c->
+  <c- u>"path/to/res1.mf"</c-><c- p>,</c->
+  <c- u>"path/to/res2.mf"</c-><c- p>,</c->
+<c- p>]);</c->
+<c- a>let</c-> msg <c- o>=</c-> <c- k>await</c-> ctx<c- p>.</c->formatMessage<c- p>(</c-><c- u>"greetings-msg"</c-><c- p>,</c-> <c- p>{</c->
+  userName<c- o>:</c-> <c- u>"Mary"</c-><c- p>,</c->
+<c- p>});</c->
+</pre>
+   <h2 class="heading settled" data-level="5" id="resource-resolution"><span class="secno">5. </span><span class="content">Resource Resolution</span><a class="self-link" href="#resource-resolution"></a></h2>
+   <p>In the proposal the paths provided to the localization contexts are intentionally ambigious, as the mechanism to resolve localization resources is not trivial and has to be well thought through.</p>
+   <p>The main aspect of the mechanism is that it has to enable the engine to reason about which locales the resources are available in, which locales the user or app requested, negotiate between them, and handle any fallbacks between them.</p>
+   <p>A potential way to produce sufficient information may look like this:</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>l10n-meta</c->
+      <c- e>available-locales</c-><c- o>=</c-><c- s>"de, fr, it"</c->
+      <c- e>default-locale</c-><c- o>=</c-><c- s>"fr"</c->
+      <c- e>path-schema</c-><c- o>=</c-><c- s>"/static/l10n/{locale}/{resId}"</c->
+    <c- p>/></c->
+    <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource1.mf"</c-> <c- p>/></c->
+    <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource2.mf"</c-> <c- p>/></c->
+  <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
+</pre>
+   <p>It would result in the engine taking user requested locales for the app, negotiating it against the listed available locales and then fetch the resources using the resolved path schema.</p>
+   <h2 class="heading settled" data-level="6" id="attribute-localization"><span class="secno">6. </span><span class="content">Attribute Localization</span><a class="self-link" href="#attribute-localization"></a></h2>
+   <p>HTML and Web Components provide elements with translatable attributes such as `title` and `placeholder`.</p>
+   <p>It may be possible to use MessageFormat 2.0 concept of localization groups to cluster a number of localization messages into a group that will be used to localize an HTML element and its attributes together:</p>
+<pre class="highlight">ok-button {
+<c- e>  .content</c-> <c- o>=</c-> <c- s>Click me</c->
+<c- e>  .title</c-> <c- o>=</c-> <c- s>Title to show on hover</c->
+<c- e>  .ariaLabel</c-> <c- o>=</c-> <c- s>Main button</c->
+}
+</pre>
+<pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>button</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"ok-button"</c-> <c- p>/></c->
+  <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
+</pre>
+   <p>Such atomic binding between a UI widget and a composed localization unit would be particularly useful for localization of Web Components where rich set of attributes could be used to carry localization messages across the boundary from the document to shadow DOM.</p>
+   <p>Such binding would also enable locale consistency for the whole UI element ensuring that content and attributes of each element are localized into the same locale, be it primary, or any fallback.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
