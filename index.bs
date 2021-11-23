@@ -32,13 +32,13 @@ The proposed solution provides cohesive developer experience between DOM and Jav
 
 ## Localization Context
 
-We are proposing to introduce a notion of a localization context, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of localization resources declared in the `<head/>` of the document.
+We are proposing to introduce a notion of a localization context, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of localization resources declared in the <{head}> of the document.
 
 Similarly to stylesheets, developers would be able to programmatically construct any number of localization contexts, as well as declaratively define them for HTML documents, shadow DOM trees etc.
 
 ### Document Localization Context
 
-Default use case of a localization context would be a context declared in the `<head/>` element of a document scoped to that document and used for localization of it.
+Default use case of a localization context would be a context declared in the <{head}> element of a document scoped to that document and used for localization of it.
 
 <xmp highlight="html">
 <html>
@@ -94,7 +94,7 @@ can be then used to localize HTML content such as:
 
 ### Localization Arguments
 
-Second proposed core attribute is a collection of values, similar to `dataset` which contains variables passed from the developer to localization context for use when resolving a given message:
+Second proposed core attribute is a collection of values, similar to {{dataset}} which contains variables passed from the developer to localization context for use when resolving a given message:
 
 <xmp highlight="properties">
 greetings-msg = Welcome, { $userName }.
@@ -169,7 +169,7 @@ It would result in the engine taking user requested locales for the app, negotia
 
 # Attribute Localization
 
-HTML and Web Components provide elements with translatable attributes such as `title` and `placeholder`.
+HTML and Web Components provide elements with translatable attributes such as {{title}} and {{placeholder}}.
 
 It may be possible to use MessageFormat 2.0 concept of localization groups to cluster a number of localization messages into a group that will be used to localize an HTML element and its attributes together:
 

@@ -1,0 +1,3 @@
+#!/bin/bash
+bikeshed spec index.bs
+mv index.html ./docs

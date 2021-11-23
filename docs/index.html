@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version bbc364800, updated Mon Nov 15 13:57:55 2021 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
-  <meta content="d50c76b49d4c90ef7cafcf868adc9bdbfb0939fa" name="document-revision">
+  <meta content="c4e417a02301a2dd56812440b66be3eb825071fe" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1690,6 +1690,47 @@ figcaption {
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
 }</style>
+<style>/* style-dfn-panel */
+
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled { cursor: pointer; }
+</style>
 <style>/* style-issues */
 
 a[href].issue-return {
@@ -1943,6 +1984,12 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 }
 
 @media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+@media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
 
     c-[a] { color: #d33682 } /* Keyword.Declaration */
@@ -2009,13 +2056,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">DOM Localization</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2021-11-22">22 November 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2021-11-23">23 November 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://nordzilla.github.io/dom-l10n-draft-spec/">https://nordzilla.github.io/dom-l10n-draft-spec/</a>
      <dt>Issue Tracking:
-     <dd><a href="https://github.com/zbraniecki/dom-l10n-draft-spec/issues/">GitHub</a>
+     <dd><a href="https://github.com/nordzilla/dom-l10n-draft-spec/issues/">GitHub</a>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/nordzilla">Erik Nordin</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:nordzilla@mozilla.com">nordzilla@mozilla.com</a>
     </dl>
@@ -2023,7 +2070,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 22 November 2021,
+In addition, as of 23 November 2021,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2060,6 +2107,11 @@ Parts of this work may be from another specification document.  If so, those par
     <li><a href="#attribute-localization"><span class="secno">6</span> <span class="content">Attribute Localization</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
+     <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
+     <ol class="toc">
+      <li><a href="#index-defined-elsewhere"><span class="secno"></span> <span class="content">Terms defined by reference</span></a>
+     </ol>
+    <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
@@ -2078,10 +2130,10 @@ We propose that the DOM localization system to be build on top of MessageFormat 
    <h2 class="heading settled" data-level="3" id="proposed-solution"><span class="secno">3. </span><span class="content">Proposed Solution</span><a class="self-link" href="#proposed-solution"></a></h2>
    <p>The proposed solution provides cohesive developer experience between DOM and JavaScript localization, compatible with CSS, Shadow DOM and other aspects of web stack.</p>
    <h3 class="heading settled" data-level="3.1" id="localization-context"><span class="secno">3.1. </span><span class="content">Localization Context</span><a class="self-link" href="#localization-context"></a></h3>
-   <p>We are proposing to introduce a notion of a localization context, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of localization resources declared in the `` of the document.</p>
+   <p>We are proposing to introduce a notion of a localization context, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of localization resources declared in the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element" id="ref-for-the-head-element">head</a></code> of the document.</p>
    <p>Similarly to stylesheets, developers would be able to programmatically construct any number of localization contexts, as well as declaratively define them for HTML documents, shadow DOM trees etc.</p>
    <h4 class="heading settled" data-level="3.1.1" id="document-localization-context"><span class="secno">3.1.1. </span><span class="content">Document Localization Context</span><a class="self-link" href="#document-localization-context"></a></h4>
-   <p>Default use case of a localization context would be a context declared in the `` element of a document scoped to that document and used for localization of it.</p>
+   <p>Default use case of a localization context would be a context declared in the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element" id="ref-for-the-head-element①">head</a></code> element of a document scoped to that document and used for localization of it.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"path/to/resource1.mf"</c-> <c- p>/></c->
@@ -2119,7 +2171,7 @@ We propose that the DOM localization system to be build on top of MessageFormat 
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
    <h4 class="heading settled" data-level="3.2.2" id="localization-arguments"><span class="secno">3.2.2. </span><span class="content">Localization Arguments</span><a class="self-link" href="#localization-arguments"></a></h4>
-   <p>Second proposed core attribute is a collection of values, similar to `dataset` which contains variables passed from the developer to localization context for use when resolving a given message:</p>
+   <p>Second proposed core attribute is a collection of values, similar to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/dom.html#dom-dataset" id="ref-for-dom-dataset">dataset</a></code> which contains variables passed from the developer to localization context for use when resolving a given message:</p>
 <pre class="highlight"><c- e>greetings-msg</c-> <c- o>=</c-> <c- s>Welcome, { $userName }.</c->
 </pre>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
@@ -2168,7 +2220,7 @@ h1<c- p>.</c->l10n<c- p>.</c->setAttributes<c- p>(</c-><c- u>"greetings-msg"</c-
 </pre>
    <p>It would result in the engine taking user requested locales for the app, negotiating it against the listed available locales and then fetch the resources using the resolved path schema.</p>
    <h2 class="heading settled" data-level="6" id="attribute-localization"><span class="secno">6. </span><span class="content">Attribute Localization</span><a class="self-link" href="#attribute-localization"></a></h2>
-   <p>HTML and Web Components provide elements with translatable attributes such as `title` and `placeholder`.</p>
+   <p>HTML and Web Components provide elements with translatable attributes such as <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-1/#dom-stylesheet-title" id="ref-for-dom-stylesheet-title">title</a></code> and <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/input.html#dom-input-placeholder" id="ref-for-dom-input-placeholder">placeholder</a></code>.</p>
    <p>It may be possible to use MessageFormat 2.0 concept of localization groups to cluster a number of localization messages into a group that will be used to localize an HTML element and its attributes together:</p>
 <pre class="highlight">ok-button {
 <c- e>  .content</c-> <c- o>=</c-> <c- s>Click me</c->
@@ -2331,9 +2383,110 @@ h1<c- p>.</c->l10n<c- p>.</c->setAttributes<c- p>(</c-><c- u>"greetings-msg"</c-
 
 })();
 </script>
+  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <aside class="dfn-panel" data-for="term-for-dom-stylesheet-title">
+   <a href="https://drafts.csswg.org/cssom-1/#dom-stylesheet-title">https://drafts.csswg.org/cssom-1/#dom-stylesheet-title</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-stylesheet-title">6. Attribute Localization</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-dataset">
+   <a href="https://html.spec.whatwg.org/multipage/dom.html#dom-dataset">https://html.spec.whatwg.org/multipage/dom.html#dom-dataset</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-dataset">3.2.2. Localization Arguments</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-the-head-element">
+   <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element">https://html.spec.whatwg.org/multipage/semantics.html#the-head-element</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-the-head-element">3.1. Localization Context</a>
+    <li><a href="#ref-for-the-head-element①">3.1.1. Document Localization Context</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-input-placeholder">
+   <a href="https://html.spec.whatwg.org/multipage/input.html#dom-input-placeholder">https://html.spec.whatwg.org/multipage/input.html#dom-input-placeholder</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-input-placeholder">6. Attribute Localization</a>
+   </ul>
+  </aside>
+  <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
+  <ul class="index">
+   <li>
+    <a data-link-type="biblio">[cssom-1]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dom-stylesheet-title">title</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[HTML]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dom-dataset">dataset</span>
+     <li><span class="dfn-paneled" id="term-for-the-head-element">head</span>
+     <li><span class="dfn-paneled" id="term-for-dom-input-placeholder">placeholder</span>
+    </ul>
+  </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-cssom-1">[CSSOM-1]
+   <dd>Daniel Glazman; Emilio Cobos Álvarez. <a href="https://www.w3.org/TR/cssom-1/"><cite>CSS Object Model (CSSOM)</cite></a>. 26 August 2021. WD. URL: <a href="https://www.w3.org/TR/cssom-1/">https://www.w3.org/TR/cssom-1/</a>
+   <dt id="biblio-html">[HTML]
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
   </dl>
+<script>/* script-dfn-panel */
+
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
+        });
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>
