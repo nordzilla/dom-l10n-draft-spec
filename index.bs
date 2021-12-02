@@ -6,7 +6,9 @@ Status: DREAM
 Group: MOZILLA
 URL: https://nordzilla.github.io/dom-l10n-draft-spec/
 Editor: Erik Nordin, Mozilla https://www.mozilla.org/, nordzilla@mozilla.com, https://github.com/nordzilla
+Editor: Zibi Braniecki, Mozilla https://www.mozilla.org/, zbraniecki@mozilla.com, https://github.com/zbraniecki
 Abstract: This draft defines a proposal for a web standard for DOM localization. DOM localization is a system that allows authors and users to attach localization resources to structured documents (e.g., HTML documents). By separating the localization resources of documents from the structure, presentation and content, DOM localization enables Web applications to be localizable. 
+Markup Shorthands: css yes, markdown yes
 </pre>
 
 Introduction {#intro}
@@ -43,8 +45,8 @@ Default use case of a localization context would be a context declared in the <{
 <xmp highlight="html">
 <html>
   <head>
-    <link rel="localization" src="path/to/resource1.mf" />
-    <link rel="localization" src="path/to/resource2.mf" />
+    <link rel="localization" src="uri/for/resource1.mf" />
+    <link rel="localization" src="uri/for/resource2.mf" />
   </head>
 </html>
 </xmp>
@@ -57,12 +59,12 @@ It could be also possible to allow for multiple localization contexts to be list
 <html>
   <head>
     <l10n-context name="menu">
-      <link rel="localization" src="path/to/resource1.mf" />
-      <link rel="localization" src="path/to/resource2.mf" />
+      <link rel="localization" src="uri/for/resource1.mf" />
+      <link rel="localization" src="uri/for/resource2.mf" />
     </l10n-context>
     <l10n-context name="chrome">
-      <link rel="localization" src="path/to/resource1.mf" />
-      <link rel="localization" src="path/to/resource3.mf" />
+      <link rel="localization" src="uri/for/resource1.mf" />
+      <link rel="localization" src="uri/for/resource3.mf" />
     </l10n-context>
   </head>
 </html>
@@ -131,18 +133,6 @@ let msg = await document.l10n.formatMessage("greetings-msg", {
 });
 </xmp>
 
-or construct a custom one:
-
-<xmp highlight="js">
-let ctx = new LocalizationContext([
-  "path/to/res1.mf",
-  "path/to/res2.mf",
-]);
-let msg = await ctx.formatMessage("greetings-msg", {
-  userName: "Mary",
-});
-</xmp>
-
 # Resource Resolution
 
 In the proposal the paths provided to the localization contexts are intentionally ambigious, as the mechanism to resolve localization resources is not trivial and has to be well thought through.
@@ -166,6 +156,53 @@ A potential way to produce sufficient information may look like this:
 </xmp>
 
 It would result in the engine taking user requested locales for the app, negotiating it against the listed available locales and then fetch the resources using the resolved path schema.
+An example actual path may be `/static/l10n/de-AT/path/to/resource1.mf`.
+
+# Custom Contexts
+
+Similarly to custom stylesheets it should also be possible to crate custom localization contexts:
+
+<xmp highlight="js">
+let ctx = new LocalizationContext([
+  "uri/for/res1.mf",
+  "uri/for/res2.mf",
+]);
+let msg = await ctx.formatMessage("greetings-msg", {
+  userName: "Mary",
+});
+</xmp>
+
+# Web Components
+
+There are two ways to approach web components localization.
+
+## Using Document Localization Context
+
+In that model, the web component exposes a set of attributes that are localizable and the document provides the translations out of its own localization context:
+
+<xmp highlight="properties">
+widget1 {
+  .content = Click me
+  .title = Title to show on hover
+  .ariaLabel = Main button
+}
+</xmp>
+
+<xmp highlight="html">
+<html>
+  <head>
+    <link rel="localization" src="uri/for/resource1.mf" />
+    <link rel="localization" src="uri/for/resource2.mf" />
+  </head>
+  <body>
+    <my-widget data-l10n-id="widget1"/>
+  </body>
+</html>
+</xmp>
+
+## Using its own Localization Context
+
+Alternatively, some components may come with its own localization resources and create its own custom localization contexts to be used for localization of their shadow DOM.
 
 # Attribute Localization
 
@@ -192,3 +229,30 @@ ok-button {
 Such atomic binding between a UI widget and a composed localization unit would be particularly useful for localization of Web Components where rich set of attributes could be used to carry localization messages across the boundary from the document to shadow DOM.
 
 Such binding would also enable locale consistency for the whole UI element ensuring that content and attributes of each element are localized into the same locale, be it primary, or any fallback.
+
+# L10n Mutations
+
+We propose an extension of a Localization Context with a number of methods curated for use in context of DOM Fragments.
+
+DOM Localization Context would have a concept of `roots` - elements which a special mutation observer is attached to.
+
+Such context would therefore monitor for any changes to the l10n attributes under its roots and react to those mutations by translating the affected elements.
+
+By default, document's Localization Context would cover the whole document, but custom contexts could be created:
+
+<xmp highlight="js">
+let ctx = new DOMLocalizationContext([
+  "uri/for/res1.mf",
+  "uri/for/res2.mf",
+]);
+let elem = document.getElementById("menu");
+
+// Initial translation of the fragment
+await ctx.translateFragment(elem);
+
+ctx.connectRoot(elem);
+
+// From that moment, any changes to the elem or its children
+// that affect localization would be coalesced into a localization
+// frame happening right before layout / animation frame.
+</xmp>
