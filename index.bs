@@ -16,26 +16,26 @@ Glossary of Terms {#glossary}
 
 Key termoniology used by this specification.
 
-> > <dfn>localization arguments</dfn>
+> > DOM Localization: <dfn>localization arguments</dfn>
 >
 > A set of key-value pairs that serve as arguments to provide the [=localization context=] when formatting a [=message=].
 >
 > Examples in this specification use the keyword `data-l10n-args` when annotating DOM elements with localization arguments.
 
-> > <dfn>localization context</dfn>
+> > DOM Localization: <dfn>localization context</dfn>
 >
 > A context of [=localization resources=] similar to a JavaScript document context, or CSS stylesheet,
 > with the ability to format localized [=messages=].
 >
 > A context may be declared in HTML and scoped to a document, or may stand alone and be created programmatically via JavaScript.
 
-> > <dfn>localization identifier</dfn>
+> > DOM Localization: <dfn>localization identifier</dfn>
 >
 > An identifier with which to annotate DOM elements and fragments to be localized by a [=localization context=].
 >
 > Examples in this specification use the keyword `l10n-id` when annotating DOM elements with a localization identifier.
 
-> > <dfn>localization resource</dfn>
+> > DOM Localization: <dfn>localization resource</dfn>
 >
 > A file that contains [=messages=] that are compatible with [=MessageFormat 2.0=].
 >
@@ -43,7 +43,7 @@ Key termoniology used by this specification.
 >
 > Each supported locale may have its own localized version of a resource.
 
-> > <dfn>message</dfn>
+> > DOM Localization: <dfn>message</dfn>
 >
 > Localized content that is compatible with [=MessageFormat 2.0=],
 > and that can be looked up by a unique [=localization identifier=].
@@ -51,6 +51,24 @@ Key termoniology used by this specification.
 > Messages may contain variables that can be modified at the time of formatting via [=localization arguments=].
 >
 > Messages belong to a [=localization resource=]. A [=localization resource=] may contain many messages.
+
+> > DOM Overlays: <dfn>text-level elements</dfn>
+>
+> A dom-overlays element that operates on text and is always allowed to be inserted into localized content by translators.
+>
+> e.g. <{b}> and <{em}>.
+
+> > DOM Overlays: <dfn>functional elements</dfn>
+>
+> A dom-overlays element for which the developer may specify attributes for translators to add to the element.
+>
+> e.g. <{img}> and `atl`.
+
+> > DOM Overlays: <dfn>structural elements</dfn>
+>
+> An element which is part of a nested structure created by the developer that the translator should be able to modify as appropriate.
+>
+> e.g. <{ul}>/<{ol}> and <{li}>.
 
 > > <dfn>MessageFormat 2.0</dfn>
 >
@@ -64,6 +82,8 @@ Key termoniology used by this specification.
 
 Introduction {#intro}
 =====================
+
+Note: Many of the ideas expressed in this proposal are inspired by [projectfluent](https://github.com/projectfluent/).
 
 The [=web stack=] is commonly used to create applications with both content and user interface. One of the core value propositions of the stack is the open, semantic and pluggable nature of the technology.
 
@@ -325,3 +345,48 @@ ctx.connectRoot(elem);
 </xmp>
 
 From the moment `connectRoot` is called for the given element, any changes to the element or its children that affect localization would be coalesced into a localization frame, which happens right before layout / animation frame.
+
+# DOM Overlays
+
+> Note: Many of the core ideas discussed in this section are inspired by [projectfluent](https://projectfluent.org/), particularly the following two sources:
+>
+> * The [DOM Overlays wiki](https://github.com/projectfluent/fluent.js/wiki/DOM-Overlays), written by Staś Małolepszy.
+> * The ideas for [New Features (rev 3)](https://github.com/zbraniecki/fluent-domoverlays-js/wiki/New-Features-%28rev-3%29), written by Zibi Braniecki
+
+We propose that it should be possible for translated [=messages=] to refer to or contain DOM elements within the [=message=] itself.
+For example, a localized [=message=] in one locale might like to add <{b}> elements in appropriate places to make the text bold.
+This is a delicate and nuanced situation that requires heavy scrutiny, since inserting arbitrary HTML can pose many security risks.
+
+We propose that there should exists three categories of overlay elements:
+
+> > <b><em>[=text-level elements=]</em></b>
+>
+> These are a subset of elements that operate on text and are deemed to be
+> always safe for trnslator to use at any time.
+>  * <{em}>
+>  * <{strong}>
+>  * <{sup}>
+>  * etc.
+
+> > <b><em>[=functional elements=]</em></b>
+>
+> Functional elements are elements sush as <{img}> and <{a}> that a developer should be
+> able to signal to the translator are intended to be used in the localized content.
+>
+> For example, a developer may provide an <{img}> with a `src` attribute, and specify that the translator
+> should provide an `alt` attribute for the image as well as determine if the image should appear inline in the text.
+>
+> Another example would be if a developer provides an <{a}> and href and would like the
+> translator to provide the text that will be displayed as the hyperlink.
+>
+> It is important that the developer should be able to signal exactly which content
+> may be specified by the translator, to ensure that the translator cannot override
+> a `src` or `href` attribute without explicit permission to do so.
+
+> > <b><em>[=structural elements=]</em></b>
+>
+> While [=text-level elements=] are allowed at all times, and [=functional elements=] have attributes which the developer may
+> allow the translator to provide, the developer should also be able to define a structure to an element that is to be localized.
+>
+> Perhaps the developer may want to have <{ul}> or <{ol}> elements be part of the localization, in which the translator
+> can then add <{li}> elements. It should also be possible for the developer nest elements that each have their own unique [=localization identifiers=].
