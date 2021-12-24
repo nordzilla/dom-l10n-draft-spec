@@ -7,40 +7,92 @@ Group: MOZILLA
 URL: https://nordzilla.github.io/dom-l10n-draft-spec/
 Editor: Erik Nordin, Mozilla https://www.mozilla.org/, nordzilla@mozilla.com, https://github.com/nordzilla
 Editor: Zibi Braniecki, Mozilla https://www.mozilla.org/, zbraniecki@mozilla.com, https://github.com/zbraniecki
-Abstract: This draft defines a proposal for a web standard for DOM localization. DOM localization is a system that allows authors and users to attach localization resources to structured documents (e.g., HTML documents). By separating the localization resources of documents from the structure, presentation and content, DOM localization enables Web applications to be localizable.
+Abstract: This draft defines a proposal for a web standard for DOM localization. DOM localization is a system that allows authors and users to attach [=localization resources=] to structured documents (e.g., HTML documents). By separating the [=localization resources=] of documents from the structure, presentation and content, DOM localization enables Web applications to be localizable.
 Markup Shorthands: css yes, markdown yes
 </pre>
+
+Glossary of Terms {#glossary}
+=====================
+
+Key termoniology used by this specification.
+
+> > <dfn>localization arguments</dfn>
+>
+> A set of key-value pairs that serve as arguments to provide the [=localization context=] when formatting a [=message=].
+>
+> Examples in this specification use the keyword `data-l10n-args` when annotating DOM elements with localization arguments.
+
+> > <dfn>localization context</dfn>
+>
+> A context of [=localization resources=] similar to a JavaScript document context, or CSS stylesheet,
+> with the ability to format localized [=messages=].
+>
+> A context may be declared in HTML and scoped to a document, or may stand alone and be created programmatically via JavaScript.
+
+> > <dfn>localization identifier</dfn>
+>
+> An identifier with which to annotate DOM elements and fragments to be localized by a [=localization context=].
+>
+> Examples in this specification use the keyword `l10n-id` when annotating DOM elements with a localization identifier.
+
+> > <dfn>localization resource</dfn>
+>
+> A file that contains [=messages=] that are compatible with [=MessageFormat 2.0=].
+>
+> Many localization resources may be included in a [=localization context=].
+>
+> Each supported locale may have its own localized version of a resource.
+
+> > <dfn>message</dfn>
+>
+> Localized content that is compatible with [=MessageFormat 2.0=],
+> and that can be looked up by a unique [=localization identifier=].
+>
+> Messages may contain variables that can be modified at the time of formatting via [=localization arguments=].
+>
+> Messages belong to a [=localization resource=]. A [=localization resource=] may contain many messages.
+
+> > <dfn>MessageFormat 2.0</dfn>
+>
+> ([link](https://github.com/unicode-org/message-format-wg#messageformat-working-group))
+>
+> A new, generic localization system that is being developed for inclusion in Unicode and JavaScript.
+
+> > <dfn>web stack</dfn>
+>
+> The composition of HTML, DOM, CSS, and JavaScript and related technologies.
 
 Introduction {#intro}
 =====================
 
-Web stack composed of HTML, DOM, CSS and Javascript is commonly used to create applications with both content and user interface. One of the core value propositions of the stack is open, semantic and pluggable nature of the technology.
+The [=web stack=] is commonly used to create applications with both content and user interface. One of the core value propositions of the stack is the open, semantic and pluggable nature of the technology.
 
-For example CSS provides technology to style and theme HTML documents, but also enables web browsers and third-party addons such as extensions or accessibility tools to adjust the style and theme at runtime.
+For example CSS provides technology to apply styles and themes to HTML Documents, but also enables web browsers and third-party addons such as extensions or accessibility tools to adjust the styles and themes at runtime.
 
-In a similar way DOM localization proposes to introduce a localization component of the stack that would allow for HTML documents to be localized in a way that allows web browsers and third-party extensions to augment the experience of using the documents for the benfit of the user.
-Such an open system would allow for construction of localizable web applications which can be introspected for semantic information, augmented by external code for different forms of presentation (screen readers, VR etc.) and accessible to the global audience.
+In a similar way, DOM localization proposes to introduce a localization component of the [=web stack=].
+This component would allow for HTML documents to be localized in a way that enables web browsers and third-party extensions to augment documents for the benfit of the user's experience.
+Such an open system would allow for construction of localizable web applications that can be introspected for semantic information, be augmented by external code for different forms of presentation (screen readers, VR etc.), and be accessible to the global audience.
+
 
 Relation to MessageFormat 2.0 {#message-format20}
 =====================
 
-[Unicode MessageFormat 2.0](https://github.com/unicode-org/message-format-wg#messageformat-working-group) is a new generic localization system being developed for inclusion in Unicode and JavaScript.
-We propose that the DOM localization system should be built on top of MessageFormat 2.0, giving a unified localization experience for JavaScript applications and HTML documents.
+We propose that the DOM localization system should be built on top of [=MessageFormat 2.0=], providing a unified localization experience for JavaScript applications and HTML documents.
 
 Proposed Solution {#proposed-solution}
 =====================
 
-The proposed solution provides cohesive developer experience between DOM and JavaScript localization, compatible with {{CSS}}, [Shadow DOM](https://wicg.github.io/webcomponents/spec/shadow/) and other aspects of the web stack.
+The proposed solution provides cohesive developer experience between DOM and JavaScript localization, compatible with {{CSS}}, [ShadowDOM](https://wicg.github.io/webcomponents/spec/shadow/) and other aspects of the [=web stack=].
 
 ## Localization Context
 
-We are proposing to introduce a notion of a localization context, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of localization resources declared in the <{head}> of the document.
+We propose to introduce a notion of a [=localization context=], similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of [=localization resources=] declared in the <{head}> of the document.
 
-Similar to stylesheets, developers will be able to programmatically construct any number of localization contexts, as well as declaratively define them for HTML documents, shadow DOM trees etc.
+Similar to stylesheets, developers will be able to programmatically construct any number of [=localization contexts=], as well as declaratively define them for HTML documents, shadow DOM trees etc.
 
 ### Document Localization Context
 
-By default, localization resources decalred in the <{head}> element of a document should be aggregated into a localization context that is scoped to that document.
+By default, [=localization resources=] decalred in the <{head}> element of a document should be aggregated into a [=localization context=] that is scoped to that document.
 
 <xmp highlight="html">
 <html>
@@ -53,7 +105,7 @@ By default, localization resources decalred in the <{head}> element of a documen
 
 ### Multiple Document Localization Contexts
 
-It could be also possible to allow for multiple explicitly named localization contexts, each with their own resources and scopes
+It could be also possible to allow for multiple explicitly named [=localization contexts=], each with their own [=localization resources=] and scopes
 
 <xmp highlight="html">
 <html>
@@ -72,21 +124,21 @@ It could be also possible to allow for multiple explicitly named localization co
 
 ## Localization Core Attributes
 
-We are proposing to introduce a set of (potentially namespaced) core attributes to HTML that would allow developers to declaratively or programmatically bind DOM elements and fragments to localization messages.
+We propose to introduce a set of (potentially namespaced) core attributes to HTML that would allow developers to declaratively or programmatically bind DOM elements and fragments to localization [=messages=].
 
-The messages loaded into the document context(s) would then be used to localize the elements or fragments.
+The [=messages=] loaded into the document context(s) would then be used to localize the elements or fragments.
 
 ### Localization Identifier
 
-Assume a document is constructed with a localization context that contains resource with a message such as:
+Assume a document is constructed with a [=localization context=] that contains [=localization resource=] with a [=message=] such as:
 
 <xmp highlight="properties">
 key1 = Document Header
 </xmp>
 
-Note: (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)
+Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
 
-A document with such a context can then be declaratively written to localize HTML content by augmenting elements with localization identifiers.
+A document with such a context can then be declaratively written to localize HTML content by augmenting elements with [=localization identifiers=].
 
 <xmp highlight="html">
 <html>
@@ -96,34 +148,34 @@ A document with such a context can then be declaratively written to localize HTM
 </html>
 </xmp>
 
-If a localization identifier's value matches a message contained within the document's localization context, then the element to which the
+If a [=localization identifier's=] value matches a [=message=] contained within the document's [=localization context=], then the element to which the
 identifier belongs will be localized accordingly.
 
 ### Localization Arguments
 
-The second proposed core attribute is a collection of values, similar to {{dataset}}, which contains variables passed from the developer to
-the localization context for use when resolving a message:
+The second proposed core attribute is a collection of values, similar to {{dataset}}. The [=localization arguments=] contain variables passed from the developer to
+the [=localization context=] for use when resolving a [=message=]:
 
 <xmp highlight="properties">
 greetings-msg = Welcome, { $userName }.
 </xmp>
 
-Note: (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)
+Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
 
 <xmp highlight="html">
 <html>
   <body>
-    <h1 l10n-id="greetings-msg" l10n-args-userName="John" />
+    <h1 l10n-id="greetings-msg" data-l10n-args='{"userName":"John"}'/>
   </body>
 </html>
 </xmp>
 
-The ability to provide a document with a localization context, in addition to the ability to declaratively annotate elements and fragments
+The ability to provide a document with a [=localization context=], in addition to the ability to declaratively annotate elements and fragments
 within the document, provides a basis of the DOM localization system.
 
 # DOM API
 
-In order for the system to be accessible programmatically, DOM localization provides an API to operate on the context, and its elements.
+In order for the system to be accessible programmatically, DOM localization provides an API to operate on the [=localization context=] and its elements.
 
 The main paradigm is a declarative annotation of elements, much like `class` is used in CSS to bind style classes to element:
 
@@ -134,7 +186,7 @@ h1.l10n.setAttributes("greetings-msg", { userName: "John" });
 
 This separates the programmatic annotation of the DOM tree with localization bindings, from the application of the localization, which can happen asynchornously and be synced to animation and paint frames.
 
-In cases where the developer needs to operate on localization messages programmatically, users can access the main document's context to format a message:
+In cases where the developer needs to operate on localization [=messages=] programmatically, users can access the main document's context to format a [=message=]:
 
 <xmp highlight="js">
 let msg = await document.l10n.formatMessage("greetings-msg", {
@@ -142,14 +194,12 @@ let msg = await document.l10n.formatMessage("greetings-msg", {
 });
 </xmp>
 
-
-
 # Resource Resolution
 
-In the proposal the paths provided to the localization contexts are intentionally ambigious, as the mechanism to resolve localization resources is nontrivial and will require a significant amount of up-front design.
+In this proposal, the paths provided to the [=localization contexts=] are intentionally ambigious, as the mechanism to resolve [=localization resources=] is nontrivial and will require a significant amount of up-front design.
 
-The main aspect of the mechanism is that it has to enable the engine to reason about in which locales resources are available, and in which locales the user or app requested.
-It must be able to negotiate between these two sets to provide an optimal solution for formatting messages in the given context.
+The main aspect of the mechanism is that it has to enable the engine to reason about the locales that the user or app requested, and the locales in which [=localization resources=] are available.
+It must be able to negotiate between these two sets to provide an optimal solution for formatting [=messages=] in the given [=localization context=].
 
 A potential way to produce sufficient information may look like this:
 
@@ -167,9 +217,9 @@ A potential way to produce sufficient information may look like this:
 </html>
 </xmp>
 
-This would result in the engine taking user requested locales for the app, negotiating them against the listed available locales, and then fetching the resources using the resolved path schema.
+This would result in the engine taking user requested locales for the app, negotiating them against the listed available locales, and then fetching the [=localization resources=] using the resolved path schema.
 
-An example path may look like the following:
+An example of a fully resolved path may look like the following:
 
 <xmp highlight="html">
 /static/l10n/de-AT/path/to/resource1.mf
@@ -177,7 +227,7 @@ An example path may look like the following:
 
 # Custom Contexts
 
-Similarly to custom stylesheets, it should be possible to programmatically create custom localization contexts:
+Similar to custom stylesheets, it should be possible to programmatically create custom [=localization contexts=]:
 
 <xmp highlight="js">
 let ctx = new LocalizationContext([
@@ -193,7 +243,7 @@ let msg = await ctx.formatMessage("greetings-msg", {
 
 HTML and Web Components provide elements with translatable attributes such as {{title}} and {{placeholder}}.
 
-It may be possible to use MessageFormat 2.0 concept of localization groups to cluster a number of localization messages into a group that will be used to declaratively localize an HTML element and its attributes together:
+It may be possible to use [=MessageFormat 2.0=] concept of localization groups to cluster a number of localization [=messages=] into a group that will be used to declaratively localize an HTML element and its attributes together:
 
 <xmp highlight="properties">
 ok-button {
@@ -203,7 +253,7 @@ ok-button {
 }
 </xmp>
 
-Note: (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)
+Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
 
 <xmp highlight="html">
 <html>
@@ -213,7 +263,7 @@ Note: (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file
 </html>
 </xmp>
 
-Such atomic binding between a UI widget and a composed localization unit would be particularly useful for localization of Web Components where rich set of attributes could be used to carry localization messages across the boundary from the document to shadow DOM.
+Such atomic binding between a UI widget and a composed localization unit would be particularly useful for localization of Web Components where rich set of attributes could be used to carry localization [=messages=] across the boundary from the document to shadow DOM.
 
 Such binding would also enable locale consistency for the whole UI element ensuring that content and attributes of each element are localized into the same locale, be it primary, or any fallback.
 
@@ -223,7 +273,7 @@ There are two ways to approach web components localization.
 
 ## Using Document Localization Context
 
-In this model, the web component exposes a set of attributes that are localizable and the document provides the translations out of its own localization context:
+In this model, the web component exposes a set of attributes that are localizable and the document provides the translations out of its own [=localization context=]:
 
 <xmp highlight="properties">
 widget1 {
@@ -233,7 +283,7 @@ widget1 {
 }
 </xmp>
 
-Note: (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)
+Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
 
 <xmp highlight="html">
 <html>
@@ -249,17 +299,17 @@ Note: (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file
 
 ## Using its own Localization Context
 
-Alternatively, some components may come with their own localization resources and may create their own custom localization contexts to be used for localization of their shadow DOM.
+Alternatively, some components may come with their own [=localization resources=] and may create their own custom [=localization contexts=] to be used for localization of their shadow DOM.
 
 # L10n Mutations
 
-We propose an extension of a Localization Context with a number of methods curated for use in context of DOM Fragments.
+We propose an extension of a [=localization context=] with a number of methods curated for use in context of DOM Fragments.
 
-DOM Localization Context would have a concept of `roots`: elements to which special mutation observers are attached.
+DOM [=localization context=] would have a concept of `roots`: elements to which special mutation observers are attached.
 
-Such context would therefore monitor for any changes to the l10n attributes under its roots and react to those mutations by translating the affected elements.
+Such [=localization contexts=] would therefore monitor for any changes to the l10n attributes under its roots and react to those mutations by translating the affected elements.
 
-By default, document's Localization Context would cover the whole document, but it should be possible to create custom contexts.
+By default, document's [=localization context=] would cover the whole document, but it should be possible to create custom [=localization contexts=].
 
 <xmp highlight="js">
 let ctx = new DOMLocalizationContext([

@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version bbc364800, updated Mon Nov 15 13:57:55 2021 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
-  <meta content="e3f4c70c9dfc636beec57450e2796407296ff786" name="document-revision">
+  <meta content="b6c109874aad26991609b8d835d21bc616a136e7" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2079,45 +2079,47 @@ Parts of this work may be from another specification document.  If so, those par
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This draft defines a proposal for a web standard for DOM localization. DOM localization is a system that allows authors and users to attach localization resources to structured documents (e.g., HTML documents). By separating the localization resources of documents from the structure, presentation and content, DOM localization enables Web applications to be localizable.</p>
+   <p>This draft defines a proposal for a web standard for DOM localization. DOM localization is a system that allows authors and users to attach <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource">localization resources</a> to structured documents (e.g., HTML documents). By separating the <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①">localization resources</a> of documents from the structure, presentation and content, DOM localization enables Web applications to be localizable.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
-    <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
-    <li><a href="#message-format20"><span class="secno">2</span> <span class="content">Relation to MessageFormat 2.0</span></a>
+    <li><a href="#glossary"><span class="secno">1</span> <span class="content">Glossary of Terms</span></a>
+    <li><a href="#intro"><span class="secno">2</span> <span class="content">Introduction</span></a>
+    <li><a href="#message-format20"><span class="secno">3</span> <span class="content">Relation to MessageFormat 2.0</span></a>
     <li>
-     <a href="#proposed-solution"><span class="secno">3</span> <span class="content">Proposed Solution</span></a>
+     <a href="#proposed-solution"><span class="secno">4</span> <span class="content">Proposed Solution</span></a>
      <ol class="toc">
       <li>
-       <a href="#localization-context"><span class="secno">3.1</span> <span class="content">Localization Context</span></a>
+       <a href="#localization-context①"><span class="secno">4.1</span> <span class="content">Localization Context</span></a>
        <ol class="toc">
-        <li><a href="#document-localization-context"><span class="secno">3.1.1</span> <span class="content">Document Localization Context</span></a>
-        <li><a href="#multiple-document-localization-contexts"><span class="secno">3.1.2</span> <span class="content">Multiple Document Localization Contexts</span></a>
+        <li><a href="#document-localization-context"><span class="secno">4.1.1</span> <span class="content">Document Localization Context</span></a>
+        <li><a href="#multiple-document-localization-contexts"><span class="secno">4.1.2</span> <span class="content">Multiple Document Localization Contexts</span></a>
        </ol>
       <li>
-       <a href="#localization-core-attributes"><span class="secno">3.2</span> <span class="content">Localization Core Attributes</span></a>
+       <a href="#localization-core-attributes"><span class="secno">4.2</span> <span class="content">Localization Core Attributes</span></a>
        <ol class="toc">
-        <li><a href="#localization-identifier"><span class="secno">3.2.1</span> <span class="content">Localization Identifier</span></a>
-        <li><a href="#localization-arguments"><span class="secno">3.2.2</span> <span class="content">Localization Arguments</span></a>
+        <li><a href="#localization-identifier①"><span class="secno">4.2.1</span> <span class="content">Localization Identifier</span></a>
+        <li><a href="#localization-arguments①"><span class="secno">4.2.2</span> <span class="content">Localization Arguments</span></a>
        </ol>
      </ol>
-    <li><a href="#dom-api"><span class="secno">4</span> <span class="content">DOM API</span></a>
-    <li><a href="#resource-resolution"><span class="secno">5</span> <span class="content">Resource Resolution</span></a>
-    <li><a href="#custom-contexts"><span class="secno">6</span> <span class="content">Custom Contexts</span></a>
-    <li><a href="#attribute-localization"><span class="secno">7</span> <span class="content">Attribute Localization</span></a>
+    <li><a href="#dom-api"><span class="secno">5</span> <span class="content">DOM API</span></a>
+    <li><a href="#resource-resolution"><span class="secno">6</span> <span class="content">Resource Resolution</span></a>
+    <li><a href="#custom-contexts"><span class="secno">7</span> <span class="content">Custom Contexts</span></a>
+    <li><a href="#attribute-localization"><span class="secno">8</span> <span class="content">Attribute Localization</span></a>
     <li>
-     <a href="#web-components"><span class="secno">8</span> <span class="content">Web Components</span></a>
+     <a href="#web-components"><span class="secno">9</span> <span class="content">Web Components</span></a>
      <ol class="toc">
-      <li><a href="#using-document-localization-context"><span class="secno">8.1</span> <span class="content">Using Document Localization Context</span></a>
-      <li><a href="#using-its-own-localization-context"><span class="secno">8.2</span> <span class="content">Using its own Localization Context</span></a>
+      <li><a href="#using-document-localization-context"><span class="secno">9.1</span> <span class="content">Using Document Localization Context</span></a>
+      <li><a href="#using-its-own-localization-context"><span class="secno">9.2</span> <span class="content">Using its own Localization Context</span></a>
      </ol>
-    <li><a href="#l10n-mutations"><span class="secno">9</span> <span class="content">L10n Mutations</span></a>
+    <li><a href="#l10n-mutations"><span class="secno">10</span> <span class="content">L10n Mutations</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
      <ol class="toc">
+      <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
       <li><a href="#index-defined-elsewhere"><span class="secno"></span> <span class="content">Terms defined by reference</span></a>
      </ol>
     <li>
@@ -2128,21 +2130,75 @@ Parts of this work may be from another specification document.  If so, those par
    </ol>
   </nav>
   <main>
-   <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
-   <p>Web stack composed of HTML, DOM, CSS and Javascript is commonly used to create applications with both content and user interface. One of the core value propositions of the stack is open, semantic and pluggable nature of the technology.</p>
-   <p>For example CSS provides technology to style and theme HTML documents, but also enables web browsers and third-party addons such as extensions or accessibility tools to adjust the style and theme at runtime.</p>
-   <p>In a similar way DOM localization proposes to introduce a localization component of the stack that would allow for HTML documents to be localized in a way that allows web browsers and third-party extensions to augment the experience of using the documents for the benfit of the user.
-Such an open system would allow for construction of localizable web applications which can be introspected for semantic information, augmented by external code for different forms of presentation (screen readers, VR etc.) and accessible to the global audience.</p>
-   <h2 class="heading settled" data-level="2" id="message-format20"><span class="secno">2. </span><span class="content">Relation to MessageFormat 2.0</span><a class="self-link" href="#message-format20"></a></h2>
-   <p><a href="https://github.com/unicode-org/message-format-wg#messageformat-working-group">Unicode MessageFormat 2.0</a> is a new generic localization system being developed for inclusion in Unicode and JavaScript.
-We propose that the DOM localization system should be built on top of MessageFormat 2.0, giving a unified localization experience for JavaScript applications and HTML documents.</p>
-   <h2 class="heading settled" data-level="3" id="proposed-solution"><span class="secno">3. </span><span class="content">Proposed Solution</span><a class="self-link" href="#proposed-solution"></a></h2>
-   <p>The proposed solution provides cohesive developer experience between DOM and JavaScript localization, compatible with <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-1/#namespacedef-css" id="ref-for-namespacedef-css">CSS</a></code>, <a href="https://wicg.github.io/webcomponents/spec/shadow/">Shadow DOM</a> and other aspects of the web stack.</p>
-   <h3 class="heading settled" data-level="3.1" id="localization-context"><span class="secno">3.1. </span><span class="content">Localization Context</span><a class="self-link" href="#localization-context"></a></h3>
-   <p>We are proposing to introduce a notion of a localization context, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of localization resources declared in the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element" id="ref-for-the-head-element">head</a></code> of the document.</p>
-   <p>Similar to stylesheets, developers will be able to programmatically construct any number of localization contexts, as well as declaratively define them for HTML documents, shadow DOM trees etc.</p>
-   <h4 class="heading settled" data-level="3.1.1" id="document-localization-context"><span class="secno">3.1.1. </span><span class="content">Document Localization Context</span><a class="self-link" href="#document-localization-context"></a></h4>
-   <p>By default, localization resources decalred in the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element" id="ref-for-the-head-element①">head</a></code> element of a document should be aggregated into a localization context that is scoped to that document.</p>
+   <h2 class="heading settled" data-level="1" id="glossary"><span class="secno">1. </span><span class="content">Glossary of Terms</span><a class="self-link" href="#glossary"></a></h2>
+   <p>Key termoniology used by this specification.</p>
+   <blockquote>
+    <blockquote>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="localization-arguments">localization arguments</dfn></p>
+    </blockquote>
+    <p>A set of key-value pairs that serve as arguments to provide the <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context">localization context</a> when formatting a <a data-link-type="dfn" href="#message" id="ref-for-message">message</a>.</p>
+    <p>Examples in this specification use the keyword <code>data-l10n-args</code> when annotating DOM elements with localization arguments.</p>
+   </blockquote>
+   <blockquote>
+    <blockquote>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="localization-context">localization context</dfn></p>
+    </blockquote>
+    <p>A context of <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource②">localization resources</a> similar to a JavaScript document context, or CSS stylesheet,
+with the ability to format localized <a data-link-type="dfn" href="#message" id="ref-for-message①">messages</a>.</p>
+    <p>A context may be declared in HTML and scoped to a document, or may stand alone and be created programmatically via JavaScript.</p>
+   </blockquote>
+   <blockquote>
+    <blockquote>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="localization-identifier">localization identifier</dfn></p>
+    </blockquote>
+    <p>An identifier with which to annotate DOM elements and fragments to be localized by a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①">localization context</a>.</p>
+    <p>Examples in this specification use the keyword <code>l10n-id</code> when annotating DOM elements with a localization identifier.</p>
+   </blockquote>
+   <blockquote>
+    <blockquote>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="localization-resource">localization resource</dfn></p>
+    </blockquote>
+    <p>A file that contains <a data-link-type="dfn" href="#message" id="ref-for-message②">messages</a> that are compatible with <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20">MessageFormat 2.0</a>.</p>
+    <p>Many localization resources may be included in a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context②">localization context</a>.</p>
+    <p>Each supported locale may have its own localized version of a resource.</p>
+   </blockquote>
+   <blockquote>
+    <blockquote>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="message">message</dfn></p>
+    </blockquote>
+    <p>Localized content that is compatible with <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20①">MessageFormat 2.0</a>,
+and that can be looked up by a unique <a data-link-type="dfn" href="#localization-identifier" id="ref-for-localization-identifier">localization identifier</a>.</p>
+    <p>Messages may contain variables that can be modified at the time of formatting via <a data-link-type="dfn" href="#localization-arguments" id="ref-for-localization-arguments">localization arguments</a>.</p>
+    <p>Messages belong to a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource③">localization resource</a>. A <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource④">localization resource</a> may contain many messages.</p>
+   </blockquote>
+   <blockquote>
+    <blockquote>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="messageformat-20">MessageFormat 2.0</dfn></p>
+    </blockquote>
+    <p>(<a href="https://github.com/unicode-org/message-format-wg#messageformat-working-group">link</a>)</p>
+    <p>A new, generic localization system that is being developed for inclusion in Unicode and JavaScript.</p>
+   </blockquote>
+   <blockquote>
+    <blockquote>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="web-stack">web stack</dfn></p>
+    </blockquote>
+    <p>The composition of HTML, DOM, CSS, and JavaScript and related technologies.</p>
+   </blockquote>
+   <h2 class="heading settled" data-level="2" id="intro"><span class="secno">2. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
+   <p>The <a data-link-type="dfn" href="#web-stack" id="ref-for-web-stack">web stack</a> is commonly used to create applications with both content and user interface. One of the core value propositions of the stack is the open, semantic and pluggable nature of the technology.</p>
+   <p>For example CSS provides technology to apply styles and themes to HTML Documents, but also enables web browsers and third-party addons such as extensions or accessibility tools to adjust the styles and themes at runtime.</p>
+   <p>In a similar way, DOM localization proposes to introduce a localization component of the <a data-link-type="dfn" href="#web-stack" id="ref-for-web-stack①">web stack</a>.
+This component would allow for HTML documents to be localized in a way that enables web browsers and third-party extensions to augment documents for the benfit of the user’s experience.
+Such an open system would allow for construction of localizable web applications that can be introspected for semantic information, be augmented by external code for different forms of presentation (screen readers, VR etc.), and be accessible to the global audience.</p>
+   <h2 class="heading settled" data-level="3" id="message-format20"><span class="secno">3. </span><span class="content">Relation to MessageFormat 2.0</span><a class="self-link" href="#message-format20"></a></h2>
+   <p>We propose that the DOM localization system should be built on top of <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20②">MessageFormat 2.0</a>, providing a unified localization experience for JavaScript applications and HTML documents.</p>
+   <h2 class="heading settled" data-level="4" id="proposed-solution"><span class="secno">4. </span><span class="content">Proposed Solution</span><a class="self-link" href="#proposed-solution"></a></h2>
+   <p>The proposed solution provides cohesive developer experience between DOM and JavaScript localization, compatible with <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-1/#namespacedef-css" id="ref-for-namespacedef-css">CSS</a></code>, <a href="https://wicg.github.io/webcomponents/spec/shadow/">ShadowDOM</a> and other aspects of the <a data-link-type="dfn" href="#web-stack" id="ref-for-web-stack②">web stack</a>.</p>
+   <h3 class="heading settled" data-level="4.1" id="localization-context①"><span class="secno">4.1. </span><span class="content">Localization Context</span><a class="self-link" href="#localization-context①"></a></h3>
+   <p>We propose to introduce a notion of a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context③">localization context</a>, similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑤">localization resources</a> declared in the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element" id="ref-for-the-head-element">head</a></code> of the document.</p>
+   <p>Similar to stylesheets, developers will be able to programmatically construct any number of <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context④">localization contexts</a>, as well as declaratively define them for HTML documents, shadow DOM trees etc.</p>
+   <h4 class="heading settled" data-level="4.1.1" id="document-localization-context"><span class="secno">4.1.1. </span><span class="content">Document Localization Context</span><a class="self-link" href="#document-localization-context"></a></h4>
+   <p>By default, <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑥">localization resources</a> decalred in the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element" id="ref-for-the-head-element①">head</a></code> element of a document should be aggregated into a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context⑤">localization context</a> that is scoped to that document.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"uri/for/resource1.mf"</c-> <c- p>/></c->
@@ -2150,8 +2206,8 @@ We propose that the DOM localization system should be built on top of MessageFor
   <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
-   <h4 class="heading settled" data-level="3.1.2" id="multiple-document-localization-contexts"><span class="secno">3.1.2. </span><span class="content">Multiple Document Localization Contexts</span><a class="self-link" href="#multiple-document-localization-contexts"></a></h4>
-   <p>It could be also possible to allow for multiple explicitly named localization contexts, each with their own resources and scopes</p>
+   <h4 class="heading settled" data-level="4.1.2" id="multiple-document-localization-contexts"><span class="secno">4.1.2. </span><span class="content">Multiple Document Localization Contexts</span><a class="self-link" href="#multiple-document-localization-contexts"></a></h4>
+   <p>It could be also possible to allow for multiple explicitly named <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context⑥">localization contexts</a>, each with their own <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑦">localization resources</a> and scopes</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>l10n-context</c-> <c- e>name</c-><c- o>=</c-><c- s>"menu"</c-><c- p>></c->
@@ -2165,53 +2221,53 @@ We propose that the DOM localization system should be built on top of MessageFor
   <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
-   <h3 class="heading settled" data-level="3.2" id="localization-core-attributes"><span class="secno">3.2. </span><span class="content">Localization Core Attributes</span><a class="self-link" href="#localization-core-attributes"></a></h3>
-   <p>We are proposing to introduce a set of (potentially namespaced) core attributes to HTML that would allow developers to declaratively or programmatically bind DOM elements and fragments to localization messages.</p>
-   <p>The messages loaded into the document context(s) would then be used to localize the elements or fragments.</p>
-   <h4 class="heading settled" data-level="3.2.1" id="localization-identifier"><span class="secno">3.2.1. </span><span class="content">Localization Identifier</span><a class="self-link" href="#localization-identifier"></a></h4>
-   <p>Assume a document is constructed with a localization context that contains resource with a message such as:</p>
+   <h3 class="heading settled" data-level="4.2" id="localization-core-attributes"><span class="secno">4.2. </span><span class="content">Localization Core Attributes</span><a class="self-link" href="#localization-core-attributes"></a></h3>
+   <p>We propose to introduce a set of (potentially namespaced) core attributes to HTML that would allow developers to declaratively or programmatically bind DOM elements and fragments to localization <a data-link-type="dfn" href="#message" id="ref-for-message③">messages</a>.</p>
+   <p>The <a data-link-type="dfn" href="#message" id="ref-for-message④">messages</a> loaded into the document context(s) would then be used to localize the elements or fragments.</p>
+   <h4 class="heading settled" data-level="4.2.1" id="localization-identifier①"><span class="secno">4.2.1. </span><span class="content">Localization Identifier</span><a class="self-link" href="#localization-identifier①"></a></h4>
+   <p>Assume a document is constructed with a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context⑦">localization context</a> that contains <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑧">localization resource</a> with a <a data-link-type="dfn" href="#message" id="ref-for-message⑤">message</a> such as:</p>
 <pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>Document Header</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)</p>
-   <p>A document with such a context can then be declaratively written to localize HTML content by augmenting elements with localization identifiers.</p>
+   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20③">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑨">localization resource</a> file)</p>
+   <p>A document with such a context can then be declaratively written to localize HTML content by augmenting elements with <a data-link-type="dfn" href="#localization-identifier" id="ref-for-localization-identifier①">localization identifiers</a>.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-> <c- p>/></c->
   <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
-   <p>If a localization identifier’s value matches a message contained within the document’s localization context, then the element to which the
+   <p>If a <a data-link-type="dfn" href="#localization-identifier" id="ref-for-localization-identifier②">localization identifier’s</a> value matches a <a data-link-type="dfn" href="#message" id="ref-for-message⑥">message</a> contained within the document’s <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context⑧">localization context</a>, then the element to which the
 identifier belongs will be localized accordingly.</p>
-   <h4 class="heading settled" data-level="3.2.2" id="localization-arguments"><span class="secno">3.2.2. </span><span class="content">Localization Arguments</span><a class="self-link" href="#localization-arguments"></a></h4>
-   <p>The second proposed core attribute is a collection of values, similar to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/dom.html#dom-dataset" id="ref-for-dom-dataset">dataset</a></code>, which contains variables passed from the developer to
-the localization context for use when resolving a message:</p>
+   <h4 class="heading settled" data-level="4.2.2" id="localization-arguments①"><span class="secno">4.2.2. </span><span class="content">Localization Arguments</span><a class="self-link" href="#localization-arguments①"></a></h4>
+   <p>The second proposed core attribute is a collection of values, similar to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/dom.html#dom-dataset" id="ref-for-dom-dataset">dataset</a></code>. The <a data-link-type="dfn" href="#localization-arguments" id="ref-for-localization-arguments①">localization arguments</a> contain variables passed from the developer to
+the <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context⑨">localization context</a> for use when resolving a <a data-link-type="dfn" href="#message" id="ref-for-message⑦">message</a>:</p>
 <pre class="highlight"><c- e>greetings-msg</c-> <c- o>=</c-> <c- s>Welcome, { $userName }.</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)</p>
+   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20④">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⓪">localization resource</a> file)</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
-    <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"greetings-msg"</c-> <c- e>l10n-args-userName</c-><c- o>=</c-><c- s>"John"</c-> <c- p>/></c->
+    <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"greetings-msg"</c-> <c- e>data-l10n-args</c-><c- o>=</c-><c- s>'{"userName":"John"}'</c-><c- p>/></c->
   <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
-   <p>The ability to provide a document with a localization context, in addition to the ability to declaratively annotate elements and fragments
+   <p>The ability to provide a document with a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①⓪">localization context</a>, in addition to the ability to declaratively annotate elements and fragments
 within the document, provides a basis of the DOM localization system.</p>
-   <h2 class="heading settled" data-level="4" id="dom-api"><span class="secno">4. </span><span class="content">DOM API</span><a class="self-link" href="#dom-api"></a></h2>
-   <p>In order for the system to be accessible programmatically, DOM localization provides an API to operate on the context, and its elements.</p>
+   <h2 class="heading settled" data-level="5" id="dom-api"><span class="secno">5. </span><span class="content">DOM API</span><a class="self-link" href="#dom-api"></a></h2>
+   <p>In order for the system to be accessible programmatically, DOM localization provides an API to operate on the <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①①">localization context</a> and its elements.</p>
    <p>The main paradigm is a declarative annotation of elements, much like <code>class</code> is used in CSS to bind style classes to element:</p>
 <pre class="highlight"><c- a>let</c-> h1 <c- o>=</c-> document<c- p>.</c->querySelector<c- p>(</c-><c- u>"h1"</c-><c- p>);</c->
 h1<c- p>.</c->l10n<c- p>.</c->setAttributes<c- p>(</c-><c- u>"greetings-msg"</c-><c- p>,</c-> <c- p>{</c-> userName<c- o>:</c-> <c- u>"John"</c-> <c- p>});</c->
 </pre>
    <p>This separates the programmatic annotation of the DOM tree with localization bindings, from the application of the localization, which can happen asynchornously and be synced to animation and paint frames.</p>
-   <p>In cases where the developer needs to operate on localization messages programmatically, users can access the main document’s context to format a message:</p>
+   <p>In cases where the developer needs to operate on localization <a data-link-type="dfn" href="#message" id="ref-for-message⑧">messages</a> programmatically, users can access the main document’s context to format a <a data-link-type="dfn" href="#message" id="ref-for-message⑨">message</a>:</p>
 <pre class="highlight"><c- a>let</c-> msg <c- o>=</c-> <c- k>await</c-> document<c- p>.</c->l10n<c- p>.</c->formatMessage<c- p>(</c-><c- u>"greetings-msg"</c-><c- p>,</c-> <c- p>{</c->
   userName<c- o>:</c-> <c- u>"Mary"</c-><c- p>,</c->
 <c- p>});</c->
 </pre>
-   <h2 class="heading settled" data-level="5" id="resource-resolution"><span class="secno">5. </span><span class="content">Resource Resolution</span><a class="self-link" href="#resource-resolution"></a></h2>
-   <p>In the proposal the paths provided to the localization contexts are intentionally ambigious, as the mechanism to resolve localization resources is nontrivial and will require a significant amount of up-front design.</p>
-   <p>The main aspect of the mechanism is that it has to enable the engine to reason about in which locales resources are available, and in which locales the user or app requested.
-It must be able to negotiate between these two sets to provide an optimal solution for formatting messages in the given context.</p>
+   <h2 class="heading settled" data-level="6" id="resource-resolution"><span class="secno">6. </span><span class="content">Resource Resolution</span><a class="self-link" href="#resource-resolution"></a></h2>
+   <p>In this proposal, the paths provided to the <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①②">localization contexts</a> are intentionally ambigious, as the mechanism to resolve <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①①">localization resources</a> is nontrivial and will require a significant amount of up-front design.</p>
+   <p>The main aspect of the mechanism is that it has to enable the engine to reason about the locales that the user or app requested, and the locales in which <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①②">localization resources</a> are available.
+It must be able to negotiate between these two sets to provide an optimal solution for formatting <a data-link-type="dfn" href="#message" id="ref-for-message①⓪">messages</a> in the given <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①③">localization context</a>.</p>
    <p>A potential way to produce sufficient information may look like this:</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
@@ -2225,12 +2281,12 @@ It must be able to negotiate between these two sets to provide an optimal soluti
   <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
-   <p>This would result in the engine taking user requested locales for the app, negotiating them against the listed available locales, and then fetching the resources using the resolved path schema.</p>
-   <p>An example path may look like the following:</p>
+   <p>This would result in the engine taking user requested locales for the app, negotiating them against the listed available locales, and then fetching the <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①③">localization resources</a> using the resolved path schema.</p>
+   <p>An example of a fully resolved path may look like the following:</p>
 <pre class="highlight">/static/l10n/de-AT/path/to/resource1.mf
 </pre>
-   <h2 class="heading settled" data-level="6" id="custom-contexts"><span class="secno">6. </span><span class="content">Custom Contexts</span><a class="self-link" href="#custom-contexts"></a></h2>
-   <p>Similarly to custom stylesheets, it should be possible to programmatically create custom localization contexts:</p>
+   <h2 class="heading settled" data-level="7" id="custom-contexts"><span class="secno">7. </span><span class="content">Custom Contexts</span><a class="self-link" href="#custom-contexts"></a></h2>
+   <p>Similar to custom stylesheets, it should be possible to programmatically create custom <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①④">localization contexts</a>:</p>
 <pre class="highlight"><c- a>let</c-> ctx <c- o>=</c-> <c- k>new</c-> LocalizationContext<c- p>([</c->
   <c- u>"uri/for/res1.mf"</c-><c- p>,</c->
   <c- u>"uri/for/res2.mf"</c-><c- p>,</c->
@@ -2239,35 +2295,35 @@ It must be able to negotiate between these two sets to provide an optimal soluti
   userName<c- o>:</c-> <c- u>"Mary"</c-><c- p>,</c->
 <c- p>});</c->
 </pre>
-   <h2 class="heading settled" data-level="7" id="attribute-localization"><span class="secno">7. </span><span class="content">Attribute Localization</span><a class="self-link" href="#attribute-localization"></a></h2>
+   <h2 class="heading settled" data-level="8" id="attribute-localization"><span class="secno">8. </span><span class="content">Attribute Localization</span><a class="self-link" href="#attribute-localization"></a></h2>
    <p>HTML and Web Components provide elements with translatable attributes such as <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-1/#dom-stylesheet-title" id="ref-for-dom-stylesheet-title">title</a></code> and <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/input.html#dom-input-placeholder" id="ref-for-dom-input-placeholder">placeholder</a></code>.</p>
-   <p>It may be possible to use MessageFormat 2.0 concept of localization groups to cluster a number of localization messages into a group that will be used to declaratively localize an HTML element and its attributes together:</p>
+   <p>It may be possible to use <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑤">MessageFormat 2.0</a> concept of localization groups to cluster a number of localization <a data-link-type="dfn" href="#message" id="ref-for-message①①">messages</a> into a group that will be used to declaratively localize an HTML element and its attributes together:</p>
 <pre class="highlight">ok-button {
 <c- e>  .content</c-> <c- o>=</c-> <c- s>Click me</c->
 <c- e>  .title</c-> <c- o>=</c-> <c- s>Title to show on hover</c->
 <c- e>  .ariaLabel</c-> <c- o>=</c-> <c- s>Main button</c->
 }
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)</p>
+   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑥">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①④">localization resource</a> file)</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>button</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"ok-button"</c-> <c- p>/></c->
   <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
-   <p>Such atomic binding between a UI widget and a composed localization unit would be particularly useful for localization of Web Components where rich set of attributes could be used to carry localization messages across the boundary from the document to shadow DOM.</p>
+   <p>Such atomic binding between a UI widget and a composed localization unit would be particularly useful for localization of Web Components where rich set of attributes could be used to carry localization <a data-link-type="dfn" href="#message" id="ref-for-message①②">messages</a> across the boundary from the document to shadow DOM.</p>
    <p>Such binding would also enable locale consistency for the whole UI element ensuring that content and attributes of each element are localized into the same locale, be it primary, or any fallback.</p>
-   <h2 class="heading settled" data-level="8" id="web-components"><span class="secno">8. </span><span class="content">Web Components</span><a class="self-link" href="#web-components"></a></h2>
+   <h2 class="heading settled" data-level="9" id="web-components"><span class="secno">9. </span><span class="content">Web Components</span><a class="self-link" href="#web-components"></a></h2>
    <p>There are two ways to approach web components localization.</p>
-   <h3 class="heading settled" data-level="8.1" id="using-document-localization-context"><span class="secno">8.1. </span><span class="content">Using Document Localization Context</span><a class="self-link" href="#using-document-localization-context"></a></h3>
-   <p>In this model, the web component exposes a set of attributes that are localizable and the document provides the translations out of its own localization context:</p>
+   <h3 class="heading settled" data-level="9.1" id="using-document-localization-context"><span class="secno">9.1. </span><span class="content">Using Document Localization Context</span><a class="self-link" href="#using-document-localization-context"></a></h3>
+   <p>In this model, the web component exposes a set of attributes that are localizable and the document provides the translations out of its own <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①⑤">localization context</a>:</p>
 <pre class="highlight">widget1 {
 <c- e>  .content</c-> <c- o>=</c-> <c- s>Click me</c->
 <c- e>  .title</c-> <c- o>=</c-> <c- s>Title to show on hover</c->
 <c- e>  .ariaLabel</c-> <c- o>=</c-> <c- s>Main button</c->
 }
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for MessageFormat 2.0 compatible resource file)</p>
+   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑦">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑤">localization resource</a> file)</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"uri/for/resource1.mf"</c-> <c- p>/></c->
@@ -2278,13 +2334,13 @@ It must be able to negotiate between these two sets to provide an optimal soluti
   <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
-   <h3 class="heading settled" data-level="8.2" id="using-its-own-localization-context"><span class="secno">8.2. </span><span class="content">Using its own Localization Context</span><a class="self-link" href="#using-its-own-localization-context"></a></h3>
-   <p>Alternatively, some components may come with their own localization resources and may create their own custom localization contexts to be used for localization of their shadow DOM.</p>
-   <h2 class="heading settled" data-level="9" id="l10n-mutations"><span class="secno">9. </span><span class="content">L10n Mutations</span><a class="self-link" href="#l10n-mutations"></a></h2>
-   <p>We propose an extension of a Localization Context with a number of methods curated for use in context of DOM Fragments.</p>
-   <p>DOM Localization Context would have a concept of <code>roots</code>: elements to which special mutation observers are attached.</p>
-   <p>Such context would therefore monitor for any changes to the l10n attributes under its roots and react to those mutations by translating the affected elements.</p>
-   <p>By default, document’s Localization Context would cover the whole document, but it should be possible to create custom contexts.</p>
+   <h3 class="heading settled" data-level="9.2" id="using-its-own-localization-context"><span class="secno">9.2. </span><span class="content">Using its own Localization Context</span><a class="self-link" href="#using-its-own-localization-context"></a></h3>
+   <p>Alternatively, some components may come with their own <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑥">localization resources</a> and may create their own custom <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①⑥">localization contexts</a> to be used for localization of their shadow DOM.</p>
+   <h2 class="heading settled" data-level="10" id="l10n-mutations"><span class="secno">10. </span><span class="content">L10n Mutations</span><a class="self-link" href="#l10n-mutations"></a></h2>
+   <p>We propose an extension of a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①⑦">localization context</a> with a number of methods curated for use in context of DOM Fragments.</p>
+   <p>DOM <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①⑧">localization context</a> would have a concept of <code>roots</code>: elements to which special mutation observers are attached.</p>
+   <p>Such <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①⑨">localization contexts</a> would therefore monitor for any changes to the l10n attributes under its roots and react to those mutations by translating the affected elements.</p>
+   <p>By default, document’s <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context②⓪">localization context</a> would cover the whole document, but it should be possible to create custom <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context②①">localization contexts</a>.</p>
 <pre class="highlight"><c- a>let</c-> ctx <c- o>=</c-> <c- k>new</c-> DOMLocalizationContext<c- p>([</c->
   <c- u>"uri/for/res1.mf"</c-><c- p>,</c->
   <c- u>"uri/for/res2.mf"</c-><c- p>,</c->
@@ -2445,35 +2501,45 @@ ctx<c- p>.</c->connectRoot<c- p>(</c->elem<c- p>);</c->
 })();
 </script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <ul class="index">
+   <li><a href="#localization-arguments">localization arguments</a><span>, in § 1</span>
+   <li><a href="#localization-context">localization context</a><span>, in § 1</span>
+   <li><a href="#localization-identifier">localization identifier</a><span>, in § 1</span>
+   <li><a href="#localization-resource">localization resource</a><span>, in § 1</span>
+   <li><a href="#message">message</a><span>, in § 1</span>
+   <li><a href="#messageformat-20">MessageFormat 2.0</a><span>, in § 1</span>
+   <li><a href="#web-stack">web stack</a><span>, in § 1</span>
+  </ul>
   <aside class="dfn-panel" data-for="term-for-namespacedef-css">
    <a href="https://drafts.csswg.org/cssom-1/#namespacedef-css">https://drafts.csswg.org/cssom-1/#namespacedef-css</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-namespacedef-css">3. Proposed Solution</a>
+    <li><a href="#ref-for-namespacedef-css">4. Proposed Solution</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-stylesheet-title">
    <a href="https://drafts.csswg.org/cssom-1/#dom-stylesheet-title">https://drafts.csswg.org/cssom-1/#dom-stylesheet-title</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-stylesheet-title">7. Attribute Localization</a>
+    <li><a href="#ref-for-dom-stylesheet-title">8. Attribute Localization</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-dataset">
    <a href="https://html.spec.whatwg.org/multipage/dom.html#dom-dataset">https://html.spec.whatwg.org/multipage/dom.html#dom-dataset</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-dataset">3.2.2. Localization Arguments</a>
+    <li><a href="#ref-for-dom-dataset">4.2.2. Localization Arguments</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-the-head-element">
    <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-head-element">https://html.spec.whatwg.org/multipage/semantics.html#the-head-element</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-the-head-element">3.1. Localization Context</a>
-    <li><a href="#ref-for-the-head-element①">3.1.1. Document Localization Context</a>
+    <li><a href="#ref-for-the-head-element">4.1. Localization Context</a>
+    <li><a href="#ref-for-the-head-element①">4.1.1. Document Localization Context</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-input-placeholder">
    <a href="https://html.spec.whatwg.org/multipage/input.html#dom-input-placeholder">https://html.spec.whatwg.org/multipage/input.html#dom-input-placeholder</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-input-placeholder">7. Attribute Localization</a>
+    <li><a href="#ref-for-dom-input-placeholder">8. Attribute Localization</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -2502,6 +2568,82 @@ ctx<c- p>.</c->connectRoot<c- p>(</c->elem<c- p>);</c->
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
   </dl>
+  <aside class="dfn-panel" data-for="localization-arguments">
+   <b><a href="#localization-arguments">#localization-arguments</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-localization-arguments">1. Glossary of Terms</a>
+    <li><a href="#ref-for-localization-arguments①">4.2.2. Localization Arguments</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="localization-context">
+   <b><a href="#localization-context">#localization-context</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-localization-context">1. Glossary of Terms</a> <a href="#ref-for-localization-context①">(2)</a> <a href="#ref-for-localization-context②">(3)</a>
+    <li><a href="#ref-for-localization-context③">4.1. Localization Context</a> <a href="#ref-for-localization-context④">(2)</a>
+    <li><a href="#ref-for-localization-context⑤">4.1.1. Document Localization Context</a>
+    <li><a href="#ref-for-localization-context⑥">4.1.2. Multiple Document Localization Contexts</a>
+    <li><a href="#ref-for-localization-context⑦">4.2.1. Localization Identifier</a> <a href="#ref-for-localization-context⑧">(2)</a>
+    <li><a href="#ref-for-localization-context⑨">4.2.2. Localization Arguments</a> <a href="#ref-for-localization-context①⓪">(2)</a>
+    <li><a href="#ref-for-localization-context①①">5. DOM API</a>
+    <li><a href="#ref-for-localization-context①②">6. Resource Resolution</a> <a href="#ref-for-localization-context①③">(2)</a>
+    <li><a href="#ref-for-localization-context①④">7. Custom Contexts</a>
+    <li><a href="#ref-for-localization-context①⑤">9.1. Using Document Localization Context</a>
+    <li><a href="#ref-for-localization-context①⑥">9.2. Using its own Localization Context</a>
+    <li><a href="#ref-for-localization-context①⑦">10. L10n Mutations</a> <a href="#ref-for-localization-context①⑧">(2)</a> <a href="#ref-for-localization-context①⑨">(3)</a> <a href="#ref-for-localization-context②⓪">(4)</a> <a href="#ref-for-localization-context②①">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="localization-identifier">
+   <b><a href="#localization-identifier">#localization-identifier</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-localization-identifier">1. Glossary of Terms</a>
+    <li><a href="#ref-for-localization-identifier①">4.2.1. Localization Identifier</a> <a href="#ref-for-localization-identifier②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="localization-resource">
+   <b><a href="#localization-resource">#localization-resource</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-localization-resource②">1. Glossary of Terms</a> <a href="#ref-for-localization-resource③">(2)</a> <a href="#ref-for-localization-resource④">(3)</a>
+    <li><a href="#ref-for-localization-resource⑤">4.1. Localization Context</a>
+    <li><a href="#ref-for-localization-resource⑥">4.1.1. Document Localization Context</a>
+    <li><a href="#ref-for-localization-resource⑦">4.1.2. Multiple Document Localization Contexts</a>
+    <li><a href="#ref-for-localization-resource⑧">4.2.1. Localization Identifier</a> <a href="#ref-for-localization-resource⑨">(2)</a>
+    <li><a href="#ref-for-localization-resource①⓪">4.2.2. Localization Arguments</a>
+    <li><a href="#ref-for-localization-resource①①">6. Resource Resolution</a> <a href="#ref-for-localization-resource①②">(2)</a> <a href="#ref-for-localization-resource①③">(3)</a>
+    <li><a href="#ref-for-localization-resource①④">8. Attribute Localization</a>
+    <li><a href="#ref-for-localization-resource①⑤">9.1. Using Document Localization Context</a>
+    <li><a href="#ref-for-localization-resource①⑥">9.2. Using its own Localization Context</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="message">
+   <b><a href="#message">#message</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-message">1. Glossary of Terms</a> <a href="#ref-for-message①">(2)</a> <a href="#ref-for-message②">(3)</a>
+    <li><a href="#ref-for-message③">4.2. Localization Core Attributes</a> <a href="#ref-for-message④">(2)</a>
+    <li><a href="#ref-for-message⑤">4.2.1. Localization Identifier</a> <a href="#ref-for-message⑥">(2)</a>
+    <li><a href="#ref-for-message⑦">4.2.2. Localization Arguments</a>
+    <li><a href="#ref-for-message⑧">5. DOM API</a> <a href="#ref-for-message⑨">(2)</a>
+    <li><a href="#ref-for-message①⓪">6. Resource Resolution</a>
+    <li><a href="#ref-for-message①①">8. Attribute Localization</a> <a href="#ref-for-message①②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="messageformat-20">
+   <b><a href="#messageformat-20">#messageformat-20</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-messageformat-20">1. Glossary of Terms</a> <a href="#ref-for-messageformat-20①">(2)</a>
+    <li><a href="#ref-for-messageformat-20②">3. Relation to MessageFormat 2.0</a>
+    <li><a href="#ref-for-messageformat-20③">4.2.1. Localization Identifier</a>
+    <li><a href="#ref-for-messageformat-20④">4.2.2. Localization Arguments</a>
+    <li><a href="#ref-for-messageformat-20⑤">8. Attribute Localization</a> <a href="#ref-for-messageformat-20⑥">(2)</a>
+    <li><a href="#ref-for-messageformat-20⑦">9.1. Using Document Localization Context</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="web-stack">
+   <b><a href="#web-stack">#web-stack</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-web-stack">2. Introduction</a> <a href="#ref-for-web-stack①">(2)</a>
+    <li><a href="#ref-for-web-stack②">4. Proposed Solution</a>
+   </ul>
+  </aside>
 <script>/* script-dfn-panel */
 
 document.body.addEventListener("click", function(e) {
