@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version bbc364800, updated Mon Nov 15 13:57:55 2021 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
-  <meta content="3e9cab6c510b0e285ced8f745a132d2162666b61" name="document-revision">
+  <meta content="6fecad3bdba5a5d01692a72921328a19aba685aa" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2056,7 +2056,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">DOM Localization</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2021-12-26">26 December 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2021-12-27">27 December 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2071,7 +2071,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 26 December 2021,
+In addition, as of 27 December 2021,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2188,7 +2188,7 @@ and that can be looked up by a unique <a data-link-type="dfn" href="#localizatio
    </blockquote>
    <blockquote>
     <blockquote>
-     <p>DOM Overlays: <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="structural-elements">structural elements</dfn></p>
+     <p>DOM Overlays: <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="structured-elements">structured elements</dfn></p>
     </blockquote>
     <p>An element which is part of a nested structure created by the developer that the translator should be able to modify as appropriate.</p>
     <p>e.g. <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element" id="ref-for-the-ul-element">ul</a></code>/<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element" id="ref-for-the-ol-element">ol</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element" id="ref-for-the-li-element">li</a></code>.</p>
@@ -2407,29 +2407,78 @@ always safe for trnslator to use at any time.</p>
       <p>etc.</p>
     </ul>
    </blockquote>
+   <p>For example, a developer may create a paragraph element such as the following.</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-><c- p>></c->Message to be localized.<c- p>&lt;</c-><c- f>p</c-><c- p>></c->
+</pre>
+   <p>A translator should be able to provide a translation that contains <a data-link-type="dfn" href="#text-level-elements" id="ref-for-text-level-elements①">text-level elements</a> if desired.</p>
+<pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>This is &lt;em>my&lt;/em> localized message.</c->
+</pre>
+   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑧">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑦">localization resource</a> file)</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-><c- p>></c->This is <c- p>&lt;</c-><c- f>em</c-><c- p>></c->my<c- p>&lt;/</c-><c- f>em</c-><c- p>></c-> localized message.<c- p>&lt;</c-><c- f>p</c-><c- p>></c->
+</pre>
+   <p>At which point, the final HTML would be equivalent to the following localized content in which the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-em-element" id="ref-for-the-em-element②">em</a></code> element is interpreted correctly as HTML and rendered accordingly.</p>
+   <hr>
    <blockquote>
     <blockquote>
      <p><b><em><a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements">functional elements</a></em></b></p>
     </blockquote>
-    <p>Functional elements are elements sush as <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element" id="ref-for-the-a-element">a</a></code> that a developer should be
-able to signal to the translator are intended to be used in the localized content.</p>
-    <p>For example, a developer may provide an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element②">img</a></code> with a <code>src</code> attribute, and specify that the translator
-should provide an <code>alt</code> attribute for the image as well as determine if the image should appear inline in the text.</p>
-    <p>Another example would be if a developer provides an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element" id="ref-for-the-a-element①">a</a></code> and href and would like the
-translator to provide the text that will be displayed as the hyperlink.</p>
-    <p>It is important that the developer should be able to signal exactly which content
-may be specified by the translator, to ensure that the translator cannot override
-a <code>src</code> or <code>href</code> attribute without explicit permission to do so.</p>
+    <p>Functional elements are elements such as <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element" id="ref-for-the-a-element">a</a></code> that may have attributes that the developer
+desires a translator to provide localized translations.</p>
    </blockquote>
+   <p>For example, a developer may provide an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element②">img</a></code> as a <a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements①">functional element</a> with a <code>src</code> attribute.</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+    Hi, <c- p>&lt;</c-><c- f>img</c-> <c- e>src</c-><c- o>=</c-><c- s>"world.png"</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>p</c-><c- p>></c->
+</pre>
+   <p>A translator should be able to provide an <code>alt</code> attribute for the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element③">img</a></code> element.</p>
+<pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>Hello, &lt;img data-l10n-name="world" alt="world">!</c->
+</pre>
+   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑨">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑧">localization resource</a> file)</p>
+   <p>The resulting HTML should look like the following:</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+    Hello, <c- p>&lt;</c-><c- f>img</c-> <c- e>src</c-><c- o>=</c-><c- s>"world.png"</c-> <c- e>alt</c-><c- o>=</c-><c- s>"world"</c-><c- p>></c->!
+<c- p>&lt;/</c-><c- f>p</c-><c- p>></c->
+</pre>
+   <p>This example allows the translator to add the <code>alt</code> attribute unconstrained, but
+it will likely be important to design syntax such that the translator can only add or modify
+a localized attribute if it is explicitly requested by the developer. This would ensure that the translator
+cannot override an attribute that is not meant to be localized, such as <code>src</code> or <code>href</code>, unless
+the translator has explicit permission to do so.</p>
+   <hr>
    <blockquote>
     <blockquote>
-     <p><b><em><a data-link-type="dfn" href="#structural-elements" id="ref-for-structural-elements">structural elements</a></em></b></p>
+     <p><b><em><a data-link-type="dfn" href="#structured-elements" id="ref-for-structured-elements">structured elements</a></em></b></p>
     </blockquote>
-    <p>While <a data-link-type="dfn" href="#text-level-elements" id="ref-for-text-level-elements①">text-level elements</a> are allowed at all times, and <a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements①">functional elements</a> have attributes which the developer may
-allow the translator to provide, the developer should also be able to define a structure to an element that is to be localized.</p>
-    <p>Perhaps the developer may want to have <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element" id="ref-for-the-ul-element①">ul</a></code> or <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element" id="ref-for-the-ol-element①">ol</a></code> elements be part of the localization, in which the translator
-can then add <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element" id="ref-for-the-li-element①">li</a></code> elements. It should also be possible for the developer nest elements that each have their own unique <a data-link-type="dfn" href="#localization-identifier" id="ref-for-localization-identifier③">localization identifiers</a>.</p>
+    <p>While <a data-link-type="dfn" href="#text-level-elements" id="ref-for-text-level-elements②">text-level elements</a> are allowed at all times, and <a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements②">functional elements</a> have attributes that may
+be provided or modified by a translator, a <a data-link-type="dfn" href="#structured-elements" id="ref-for-structured-elements①">structured element</a> imposes a structure that should be part
+of the localization.</p>
    </blockquote>
+   <p>For example, the developer may want to have <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element" id="ref-for-the-ul-element①">ul</a></code> or <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element" id="ref-for-the-ol-element①">ol</a></code> elements be part of the localization, in which the translator
+can then add <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element" id="ref-for-the-li-element①">li</a></code> elements. It should also be possible for the developer nest elements that each have their own unique <a data-link-type="dfn" href="#localization-identifier" id="ref-for-localization-identifier③">localization identifiers</a>.</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>ul</c-><c- p>></c->
+  <c- p>&lt;/</c-><c- f>ul</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+</pre>
+   <p>A translator should then be able to provide a localized message along with <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element" id="ref-for-the-li-element②">li</a></code> elements.</p>
+<pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>This is a localized list:</c->
+  &lt;ul>
+    &lt;li>Localized item 1&lt;/li>
+    &lt;li>Localized item 2&lt;/li>
+    &lt;li>Localized item 3&lt;/li>
+  &lt;/ul>
+</pre>
+   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20①⓪">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑨">localization resource</a> file)</p>
+   <p>The resulting HTML should look like the following:</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+    This is a localized list:
+    <c- p>&lt;</c-><c- f>ul</c-><c- p>></c->
+        <c- p>&lt;</c-><c- f>li</c-><c- p>></c->Localized item 1<c- p>&lt;/</c-><c- f>li</c-><c- p>></c->
+        <c- p>&lt;</c-><c- f>li</c-><c- p>></c->Localized item 2<c- p>&lt;/</c-><c- f>li</c-><c- p>></c->
+        <c- p>&lt;</c-><c- f>li</c-><c- p>></c->Localized item 3<c- p>&lt;/</c-><c- f>li</c-><c- p>></c->
+    <c- p>&lt;/</c-><c- f>ul</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+</pre>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -2587,7 +2636,7 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
    <li><a href="#localization-resource">localization resource</a><span>, in § 1</span>
    <li><a href="#message">message</a><span>, in § 1</span>
    <li><a href="#messageformat-20">MessageFormat 2.0</a><span>, in § 1</span>
-   <li><a href="#structural-elements">structural elements</a><span>, in § 1</span>
+   <li><a href="#structured-elements">structured elements</a><span>, in § 1</span>
    <li><a href="#text-level-elements">text-level elements</a><span>, in § 1</span>
    <li><a href="#web-stack">web stack</a><span>, in § 1</span>
   </ul>
@@ -2606,7 +2655,7 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
   <aside class="dfn-panel" data-for="term-for-the-a-element">
    <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element">https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-the-a-element">11. DOM Overlays</a> <a href="#ref-for-the-a-element①">(2)</a>
+    <li><a href="#ref-for-the-a-element">11. DOM Overlays</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-the-b-element">
@@ -2626,7 +2675,7 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
    <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-em-element">https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-em-element</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-the-em-element">1. Glossary of Terms</a>
-    <li><a href="#ref-for-the-em-element①">11. DOM Overlays</a>
+    <li><a href="#ref-for-the-em-element①">11. DOM Overlays</a> <a href="#ref-for-the-em-element②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-the-head-element">
@@ -2640,14 +2689,14 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
    <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element">https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-the-img-element">1. Glossary of Terms</a>
-    <li><a href="#ref-for-the-img-element①">11. DOM Overlays</a> <a href="#ref-for-the-img-element②">(2)</a>
+    <li><a href="#ref-for-the-img-element①">11. DOM Overlays</a> <a href="#ref-for-the-img-element②">(2)</a> <a href="#ref-for-the-img-element③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-the-li-element">
    <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element">https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-the-li-element">1. Glossary of Terms</a>
-    <li><a href="#ref-for-the-li-element①">11. DOM Overlays</a>
+    <li><a href="#ref-for-the-li-element①">11. DOM Overlays</a> <a href="#ref-for-the-li-element②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-the-ol-element">
@@ -2762,6 +2811,7 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
     <li><a href="#ref-for-localization-resource①④">8. Attribute Localization</a>
     <li><a href="#ref-for-localization-resource①⑤">9.1. Using Document Localization Context</a>
     <li><a href="#ref-for-localization-resource①⑥">9.2. Using its own Localization Context</a>
+    <li><a href="#ref-for-localization-resource①⑦">11. DOM Overlays</a> <a href="#ref-for-localization-resource①⑧">(2)</a> <a href="#ref-for-localization-resource①⑨">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="message">
@@ -2780,19 +2830,19 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
   <aside class="dfn-panel" data-for="text-level-elements">
    <b><a href="#text-level-elements">#text-level-elements</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-text-level-elements">11. DOM Overlays</a> <a href="#ref-for-text-level-elements①">(2)</a>
+    <li><a href="#ref-for-text-level-elements">11. DOM Overlays</a> <a href="#ref-for-text-level-elements①">(2)</a> <a href="#ref-for-text-level-elements②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="functional-elements">
    <b><a href="#functional-elements">#functional-elements</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-functional-elements">11. DOM Overlays</a> <a href="#ref-for-functional-elements①">(2)</a>
+    <li><a href="#ref-for-functional-elements">11. DOM Overlays</a> <a href="#ref-for-functional-elements①">(2)</a> <a href="#ref-for-functional-elements②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="structural-elements">
-   <b><a href="#structural-elements">#structural-elements</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="structured-elements">
+   <b><a href="#structured-elements">#structured-elements</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-structural-elements">11. DOM Overlays</a>
+    <li><a href="#ref-for-structured-elements">11. DOM Overlays</a> <a href="#ref-for-structured-elements①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="messageformat-20">
@@ -2804,6 +2854,7 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
     <li><a href="#ref-for-messageformat-20④">4.2.2. Localization Arguments</a>
     <li><a href="#ref-for-messageformat-20⑤">8. Attribute Localization</a> <a href="#ref-for-messageformat-20⑥">(2)</a>
     <li><a href="#ref-for-messageformat-20⑦">9.1. Using Document Localization Context</a>
+    <li><a href="#ref-for-messageformat-20⑧">11. DOM Overlays</a> <a href="#ref-for-messageformat-20⑨">(2)</a> <a href="#ref-for-messageformat-20①⓪">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="web-stack">

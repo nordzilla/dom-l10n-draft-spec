@@ -64,7 +64,7 @@ Key termoniology used by this specification.
 >
 > e.g. <{img}> and `atl`.
 
-> > DOM Overlays: <dfn>structural elements</dfn>
+> > DOM Overlays: <dfn>structured elements</dfn>
 >
 > An element which is part of a nested structure created by the developer that the translator should be able to modify as appropriate.
 >
@@ -368,25 +368,103 @@ We propose that there should exists three categories of overlay elements:
 >  * <{sup}>
 >  * etc.
 
+For example, a developer may create a paragraph element such as the following.
+
+<xmp highlight="html">
+<p>Message to be localized.<p>
+</xmp>
+
+A translator should be able to provide a translation that contains [=text-level elements=] if desired.
+
+<xmp highlight="properties">
+key1 = This is <em>my</em> localized message.
+</xmp>
+
+Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+
+<xmp highlight="html">
+<p>This is <em>my</em> localized message.<p>
+</xmp>
+
+At which point, the final HTML would be equivalent to the following localized content in which the <{em}> element is interpreted correctly as HTML and rendered accordingly.
+
+---
+
 > > <b><em>[=functional elements=]</em></b>
 >
-> Functional elements are elements sush as <{img}> and <{a}> that a developer should be
-> able to signal to the translator are intended to be used in the localized content.
->
-> For example, a developer may provide an <{img}> with a `src` attribute, and specify that the translator
-> should provide an `alt` attribute for the image as well as determine if the image should appear inline in the text.
->
-> Another example would be if a developer provides an <{a}> and href and would like the
-> translator to provide the text that will be displayed as the hyperlink.
->
-> It is important that the developer should be able to signal exactly which content
-> may be specified by the translator, to ensure that the translator cannot override
-> a `src` or `href` attribute without explicit permission to do so.
+> Functional elements are elements such as <{img}> and <{a}> that may have attributes that the developer
+> desires a translator to provide localized translations.
 
-> > <b><em>[=structural elements=]</em></b>
+For example, a developer may provide an <{img}> as a [=functional element=] with a `src` attribute.
+
+<xmp highlight="html">
+    <p data-l10n-id="key1">
+        Hi, <img src="world.png">
+    </p>
+</xmp>
+
+A translator should be able to provide an `alt` attribute for the <{img}> element.
+
+<xmp highlight="properties">
+key1 = Hello, <img data-l10n-name="world" alt="world">!
+</xmp>
+
+Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+
+The resulting HTML should look like the following:
+
+<xmp highlight="html">
+    <p data-l10n-id="key1">
+        Hello, <img src="world.png" alt="world">!
+    </p>
+</xmp>
+
+This example allows the translator to add the `alt` attribute unconstrained, but
+it will likely be important to design syntax such that the translator can only add or modify
+a localized attribute if it is explicitly requested by the developer. This would ensure that the translator
+cannot override an attribute that is not meant to be localized, such as `src` or `href`, unless
+the translator has explicit permission to do so. 
+
+---
+
+> > <b><em>[=structured elements=]</em></b>
 >
-> While [=text-level elements=] are allowed at all times, and [=functional elements=] have attributes which the developer may
-> allow the translator to provide, the developer should also be able to define a structure to an element that is to be localized.
->
-> Perhaps the developer may want to have <{ul}> or <{ol}> elements be part of the localization, in which the translator
-> can then add <{li}> elements. It should also be possible for the developer nest elements that each have their own unique [=localization identifiers=].
+> While [=text-level elements=] are allowed at all times, and [=functional elements=] have attributes that may
+> be provided or modified by a translator, a [=structured element=] imposes a structure that should be part
+> of the localization.
+
+For example, the developer may want to have <{ul}> or <{ol}> elements be part of the localization, in which the translator
+can then add <{li}> elements. It should also be possible for the developer nest elements that each have their own unique [=localization identifiers=].
+
+<xmp highlight="html">
+    <div data-l10n-id="key1">
+      <ul>
+      </ul>
+    </div>
+</xmp>
+
+A translator should then be able to provide a localized message along with <{li}> elements.
+
+<xmp highlight="properties">
+key1 = This is a localized list:
+  <ul>
+    <li>Localized item 1</li>
+    <li>Localized item 2</li>
+    <li>Localized item 3</li>
+  </ul>
+</xmp>
+
+Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+
+The resulting HTML should look like the following:
+
+<xmp highlight="html">
+    <div data-l10n-id="key1">
+        This is a localized list:
+        <ul>
+            <li>Localized item 1</li>
+            <li>Localized item 2</li>
+            <li>Localized item 3</li>
+        </ul>
+    </div>
+</xmp>
