@@ -1487,9 +1487,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version bbc364800, updated Mon Nov 15 13:57:55 2021 -0800" name="generator">
+  <meta content="Bikeshed version cace53f8c, updated Tue Dec 7 12:12:54 2021 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
-  <meta content="6fecad3bdba5a5d01692a72921328a19aba685aa" name="document-revision">
+  <meta content="e4ea68243fd96f793ade8bdc0c19c809f69ab5fa" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2056,13 +2056,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">DOM Localization</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2021-12-27">27 December 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2022-01-05">5 January 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://nordzilla.github.io/dom-l10n-draft-spec/">https://nordzilla.github.io/dom-l10n-draft-spec/</a>
      <dt>Issue Tracking:
-     <dd><a href="https://github.com/nordzilla/dom-l10n-draft-spec/issues/">GitHub</a>
+     <dd><a href="https://github.com/zbraniecki/dom-l10n-draft-spec/issues/">GitHub</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/nordzilla">Erik Nordin</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:nordzilla@mozilla.com">nordzilla@mozilla.com</a>
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/zbraniecki">Zibi Braniecki</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:zbraniecki@mozilla.com">zbraniecki@mozilla.com</a>
@@ -2071,7 +2071,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 27 December 2021,
+In addition, as of 5 January 2022,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2138,7 +2138,7 @@ Parts of this work may be from another specification document.  If so, those par
      <p>DOM Localization: <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="localization-arguments">localization arguments</dfn></p>
     </blockquote>
     <p>A set of key-value pairs that serve as arguments to provide the <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context">localization context</a> when formatting a <a data-link-type="dfn" href="#message" id="ref-for-message">message</a>.</p>
-    <p>Examples in this specification use the keyword <code>data-l10n-args</code> when annotating DOM elements with localization arguments.</p>
+    <p>Examples in this specification use the keyword <code>l10n-args</code> when annotating DOM elements with localization arguments.</p>
    </blockquote>
    <blockquote>
     <blockquote>
@@ -2269,7 +2269,7 @@ the <a data-link-type="dfn" href="#localization-context" id="ref-for-localizatio
    <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20④">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⓪">localization resource</a> file)</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
-    <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"greetings-msg"</c-> <c- e>data-l10n-args</c-><c- o>=</c-><c- s>'{"userName":"John"}'</c-><c- p>/></c->
+    <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"greetings-msg"</c-> <c- e>l10n-args</c-><c- o>=</c-><c- s>'{"userName":"John"}'</c-><c- p>/></c->
   <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
@@ -2353,7 +2353,7 @@ It must be able to negotiate between these two sets to provide an optimal soluti
     <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"uri/for/resource2.mf"</c-> <c- p>/></c->
   <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
-    <c- p>&lt;</c-><c- f>my-widget</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"widget1"</c-><c- p>/></c->
+    <c- p>&lt;</c-><c- f>my-widget</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"widget1"</c-><c- p>/></c->
   <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
@@ -2426,16 +2426,16 @@ always safe for trnslator to use at any time.</p>
 desires a translator to provide localized translations.</p>
    </blockquote>
    <p>For example, a developer may provide an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element②">img</a></code> as a <a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements①">functional element</a> with a <code>src</code> attribute.</p>
-<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
     Hi, <c- p>&lt;</c-><c- f>img</c-> <c- e>src</c-><c- o>=</c-><c- s>"world.png"</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>p</c-><c- p>></c->
 </pre>
    <p>A translator should be able to provide an <code>alt</code> attribute for the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element③">img</a></code> element.</p>
-<pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>Hello, &lt;img data-l10n-name="world" alt="world">!</c->
+<pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>Hello, &lt;img l10n-name="world" alt="world">!</c->
 </pre>
    <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑨">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑧">localization resource</a> file)</p>
    <p>The resulting HTML should look like the following:</p>
-<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
     Hello, <c- p>&lt;</c-><c- f>img</c-> <c- e>src</c-><c- o>=</c-><c- s>"world.png"</c-> <c- e>alt</c-><c- o>=</c-><c- s>"world"</c-><c- p>></c->!
 <c- p>&lt;/</c-><c- f>p</c-><c- p>></c->
 </pre>
@@ -2455,7 +2455,7 @@ of the localization.</p>
    </blockquote>
    <p>For example, the developer may want to have <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element" id="ref-for-the-ul-element①">ul</a></code> or <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element" id="ref-for-the-ol-element①">ol</a></code> elements be part of the localization, in which the translator
 can then add <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element" id="ref-for-the-li-element①">li</a></code> elements. It should also be possible for the developer nest elements that each have their own unique <a data-link-type="dfn" href="#localization-identifier" id="ref-for-localization-identifier③">localization identifiers</a>.</p>
-<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>ul</c-><c- p>></c->
   <c- p>&lt;/</c-><c- f>ul</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
@@ -2470,7 +2470,7 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
 </pre>
    <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20①⓪">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑨">localization resource</a> file)</p>
    <p>The resulting HTML should look like the following:</p>
-<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
+<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
     This is a localized list:
     <c- p>&lt;</c-><c- f>ul</c-><c- p>></c->
         <c- p>&lt;</c-><c- f>li</c-><c- p>></c->Localized item 1<c- p>&lt;/</c-><c- f>li</c-><c- p>></c->

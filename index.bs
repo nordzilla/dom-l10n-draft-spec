@@ -20,7 +20,7 @@ Key termoniology used by this specification.
 >
 > A set of key-value pairs that serve as arguments to provide the [=localization context=] when formatting a [=message=].
 >
-> Examples in this specification use the keyword `data-l10n-args` when annotating DOM elements with localization arguments.
+> Examples in this specification use the keyword `l10n-args` when annotating DOM elements with localization arguments.
 
 > > DOM Localization: <dfn>localization context</dfn>
 >
@@ -185,7 +185,7 @@ Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localiz
 <xmp highlight="html">
 <html>
   <body>
-    <h1 l10n-id="greetings-msg" data-l10n-args='{"userName":"John"}'/>
+    <h1 l10n-id="greetings-msg" l10n-args='{"userName":"John"}'/>
   </body>
 </html>
 </xmp>
@@ -312,7 +312,7 @@ Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localiz
     <link rel="localization" src="uri/for/resource2.mf" />
   </head>
   <body>
-    <my-widget data-l10n-id="widget1"/>
+    <my-widget l10n-id="widget1"/>
   </body>
 </html>
 </xmp>
@@ -398,7 +398,7 @@ At which point, the final HTML would be equivalent to the following localized co
 For example, a developer may provide an <{img}> as a [=functional element=] with a `src` attribute.
 
 <xmp highlight="html">
-    <p data-l10n-id="key1">
+    <p l10n-id="key1">
         Hi, <img src="world.png">
     </p>
 </xmp>
@@ -406,7 +406,7 @@ For example, a developer may provide an <{img}> as a [=functional element=] with
 A translator should be able to provide an `alt` attribute for the <{img}> element.
 
 <xmp highlight="properties">
-key1 = Hello, <img data-l10n-name="world" alt="world">!
+key1 = Hello, <img l10n-name="world" alt="world">!
 </xmp>
 
 Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
@@ -414,7 +414,7 @@ Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localiz
 The resulting HTML should look like the following:
 
 <xmp highlight="html">
-    <p data-l10n-id="key1">
+    <p l10n-id="key1">
         Hello, <img src="world.png" alt="world">!
     </p>
 </xmp>
@@ -437,7 +437,7 @@ For example, the developer may want to have <{ul}> or <{ol}> elements be part of
 can then add <{li}> elements. It should also be possible for the developer nest elements that each have their own unique [=localization identifiers=].
 
 <xmp highlight="html">
-    <div data-l10n-id="key1">
+    <div l10n-id="key1">
       <ul>
       </ul>
     </div>
@@ -459,7 +459,7 @@ Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localiz
 The resulting HTML should look like the following:
 
 <xmp highlight="html">
-    <div data-l10n-id="key1">
+    <div l10n-id="key1">
         This is a localized list:
         <ul>
             <li>Localized item 1</li>
