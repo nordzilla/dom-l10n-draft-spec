@@ -1269,7 +1269,7 @@ Possible extra rowspan handling
 	ul.index ul,
 	ul.index dl { font-size: smaller; }
 	@media not print {
-		ul.index li span:not(.dfn-paneled) {
+		ul.index li a + span {
 			white-space: nowrap;
 			color: transparent; }
 		ul.index li a:hover + span,
@@ -1487,9 +1487,8 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version cace53f8c, updated Tue Dec 7 12:12:54 2021 -0800" name="generator">
+  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
-  <meta content="e4ea68243fd96f793ade8bdc0c19c809f69ab5fa" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2056,13 +2055,11 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">DOM Localization</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2022-01-05">5 January 2022</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2022-01-20">20 January 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://nordzilla.github.io/dom-l10n-draft-spec/">https://nordzilla.github.io/dom-l10n-draft-spec/</a>
-     <dt>Issue Tracking:
-     <dd><a href="https://github.com/zbraniecki/dom-l10n-draft-spec/issues/">GitHub</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/nordzilla">Erik Nordin</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:nordzilla@mozilla.com">nordzilla@mozilla.com</a>
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/zbraniecki">Zibi Braniecki</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:zbraniecki@mozilla.com">zbraniecki@mozilla.com</a>
@@ -2071,7 +2068,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 5 January 2022,
+In addition, as of 20 January 2022,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2115,7 +2112,15 @@ Parts of this work may be from another specification document.  If so, those par
       <li><a href="#using-its-own-localization-context"><span class="secno">9.2</span> <span class="content">Using its own Localization Context</span></a>
      </ol>
     <li><a href="#l10n-mutations"><span class="secno">10</span> <span class="content">L10n Mutations</span></a>
-    <li><a href="#dom-overlays"><span class="secno">11</span> <span class="content">DOM Overlays</span></a>
+    <li>
+     <a href="#dom-overlays"><span class="secno">11</span> <span class="content">DOM Overlays</span></a>
+     <ol class="toc">
+      <li>
+       <a href="#security-considerations"><span class="secno">11.1</span> <span class="content">Security Considerations</span></a>
+       <ol class="toc">
+        <li><a href="#vestigial-content-after-retranslation"><span class="secno">11.1.1</span> <span class="content">Vestigial Content After Retranslation</span></a>
+       </ol>
+     </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -2406,6 +2411,7 @@ always safe for trnslator to use at any time.</p>
      <li data-md>
       <p>etc.</p>
     </ul>
+    <p>A <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html">complete list</a> of text-level elements is defined by WHATWG.</p>
    </blockquote>
    <p>For example, a developer may create a paragraph element such as the following.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>p</c-><c- p>></c->Message to be localized.<c- p>&lt;</c-><c- f>p</c-><c- p>></c->
@@ -2479,6 +2485,12 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
     <c- p>&lt;/</c-><c- f>ul</c-><c- p>></c->
 <c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
 </pre>
+   <h3 class="heading settled" data-level="11.1" id="security-considerations"><span class="secno">11.1. </span><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
+   <h4 class="heading settled" data-level="11.1.1" id="vestigial-content-after-retranslation"><span class="secno">11.1.1. </span><span class="content">Vestigial Content After Retranslation</span><a class="self-link" href="#vestigial-content-after-retranslation"></a></h4>
+   <p>DOM Overlays should be designed in a way that it is safe to retranslate content without leaving behind
+a vestige of what was there before. Given that some languages may overlay different HTML elements,
+we need to ensure that when a language changes and content is retranslated, we are able to keep track of
+and remove all content that existed due to the previous translation.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>

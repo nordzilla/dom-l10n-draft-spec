@@ -367,6 +367,8 @@ We propose that there should exists three categories of overlay elements:
 >  * <{strong}>
 >  * <{sup}>
 >  * etc.
+>
+> A [complete list](https://html.spec.whatwg.org/multipage/text-level-semantics.html) of text-level elements is defined by WHATWG.
 
 For example, a developer may create a paragraph element such as the following.
 
@@ -468,3 +470,12 @@ The resulting HTML should look like the following:
         </ul>
     </div>
 </xmp>
+
+## Security Considerations
+
+### Vestigial Content After Retranslation
+
+DOM Overlays should be designed in a way that it is safe to retranslate content without leaving behind
+a vestige of what was there before. Given that some languages may overlay different HTML elements,
+we need to ensure that when a language changes and content is retranslated, we are able to keep track of
+and remove all content that existed due to the previous translation.
