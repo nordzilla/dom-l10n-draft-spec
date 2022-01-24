@@ -1269,7 +1269,7 @@ Possible extra rowspan handling
 	ul.index ul,
 	ul.index dl { font-size: smaller; }
 	@media not print {
-		ul.index li a + span {
+		ul.index li span:not(.dfn-paneled) {
 			white-space: nowrap;
 			color: transparent; }
 		ul.index li a:hover + span,
@@ -1487,8 +1487,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
+  <meta content="Bikeshed version bbc364800, updated Mon Nov 15 13:57:55 2021 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
+  <meta content="687bf8b47c31d58edf9af7aa7e982d1949360aff" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2055,11 +2056,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">DOM Localization</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2022-01-20">20 January 2022</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2022-01-24">24 January 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://nordzilla.github.io/dom-l10n-draft-spec/">https://nordzilla.github.io/dom-l10n-draft-spec/</a>
+     <dt>Issue Tracking:
+     <dd><a href="https://github.com/nordzilla/dom-l10n-draft-spec/issues/">GitHub</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/nordzilla">Erik Nordin</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:nordzilla@mozilla.com">nordzilla@mozilla.com</a>
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/zbraniecki">Zibi Braniecki</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:zbraniecki@mozilla.com">zbraniecki@mozilla.com</a>
@@ -2068,7 +2071,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 20 January 2022,
+In addition, as of 24 January 2022,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2118,7 +2121,10 @@ Parts of this work may be from another specification document.  If so, those par
       <li>
        <a href="#security-considerations"><span class="secno">11.1</span> <span class="content">Security Considerations</span></a>
        <ol class="toc">
-        <li><a href="#vestigial-content-after-retranslation"><span class="secno">11.1.1</span> <span class="content">Vestigial Content After Retranslation</span></a>
+        <li><a href="#specify-localizable-attributes-explicitly"><span class="secno">11.1.1</span> <span class="content">Specify Localizable Attributes Explicitly</span></a>
+        <li><a href="#opaque-elements"><span class="secno">11.1.2</span> <span class="content">Opaque Elements</span></a>
+        <li><a href="#retain-element-identify"><span class="secno">11.1.3</span> <span class="content">Retain Element Identify</span></a>
+        <li><a href="#vestigial-content-after-retranslation"><span class="secno">11.1.4</span> <span class="content">Vestigial Content After Retranslation</span></a>
        </ol>
      </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
@@ -2200,10 +2206,11 @@ and that can be looked up by a unique <a data-link-type="dfn" href="#localizatio
    </blockquote>
    <blockquote>
     <blockquote>
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="messageformat-20">MessageFormat 2.0</dfn></p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="messageformat-20">MessageFormat 2.0</dfn> A new, generic localization system that is being developed for inclusion in Unicode and JavaScript.</p>
     </blockquote>
-    <p>(<a href="https://github.com/unicode-org/message-format-wg#messageformat-working-group">link</a>)</p>
-    <p>A new, generic localization system that is being developed for inclusion in Unicode and JavaScript.</p>
+    <p>(<a href="https://github.com/unicode-org/message-format-wg#messageformat-working-group">Working Group GitHub</a>)</p>
+    <p>MessageFormat Syntax in this document is based on the following proposal and is subject to change.</p>
+    <p><a href="https://github.com/eemeli/message-format-wg/blob/wip/spec-syntax.md">Syntax Proposal</a></p>
    </blockquote>
    <blockquote>
     <blockquote>
@@ -2256,7 +2263,7 @@ Such an open system would allow for construction of localizable web applications
    <p>Assume a document is constructed with a <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context⑦">localization context</a> that contains <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑧">localization resource</a> with a <a data-link-type="dfn" href="#message" id="ref-for-message⑤">message</a> such as:</p>
 <pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>Document Header</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20③">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑨">localization resource</a> file)</p>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource⑨">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20③">MessageFormat 2.0</a> syntax that is subject to change.</p>
    <p>A document with such a context can then be declaratively written to localize HTML content by augmenting elements with <a data-link-type="dfn" href="#localization-identifier" id="ref-for-localization-identifier①">localization identifiers</a>.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
@@ -2269,9 +2276,9 @@ identifier belongs will be localized accordingly.</p>
    <h4 class="heading settled" data-level="4.2.2" id="localization-arguments①"><span class="secno">4.2.2. </span><span class="content">Localization Arguments</span><a class="self-link" href="#localization-arguments①"></a></h4>
    <p>The second proposed core attribute is a collection of values, similar to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/dom.html#dom-dataset" id="ref-for-dom-dataset">dataset</a></code>. The <a data-link-type="dfn" href="#localization-arguments" id="ref-for-localization-arguments①">localization arguments</a> contain variables passed from the developer to
 the <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context⑨">localization context</a> for use when resolving a <a data-link-type="dfn" href="#message" id="ref-for-message⑦">message</a>:</p>
-<pre class="highlight"><c- e>greetings-msg</c-> <c- o>=</c-> <c- s>Welcome, { $userName }.</c->
+<pre class="highlight"><c- e>greetings-msg</c-> <c- o>=</c-> <c- s>Welcome, {$userName}.</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20④">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⓪">localization resource</a> file)</p>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⓪">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20④">MessageFormat 2.0</a> syntax that is subject to change.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>h1</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"greetings-msg"</c-> <c- e>l10n-args</c-><c- o>=</c-><c- s>'{"userName":"John"}'</c-><c- p>/></c->
@@ -2326,13 +2333,13 @@ It must be able to negotiate between these two sets to provide an optimal soluti
    <h2 class="heading settled" data-level="8" id="attribute-localization"><span class="secno">8. </span><span class="content">Attribute Localization</span><a class="self-link" href="#attribute-localization"></a></h2>
    <p>HTML and Web Components provide elements with translatable attributes such as <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-1/#dom-stylesheet-title" id="ref-for-dom-stylesheet-title">title</a></code> and <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/input.html#dom-input-placeholder" id="ref-for-dom-input-placeholder">placeholder</a></code>.</p>
    <p>It may be possible to use <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑤">MessageFormat 2.0</a> concept of localization groups to cluster a number of localization <a data-link-type="dfn" href="#message" id="ref-for-message①①">messages</a> into a group that will be used to declaratively localize an HTML element and its attributes together:</p>
-<pre class="highlight">ok-button {
-<c- e>  .content</c-> <c- o>=</c-> <c- s>Click me</c->
-<c- e>  .title</c-> <c- o>=</c-> <c- s>Title to show on hover</c->
-<c- e>  .ariaLabel</c-> <c- o>=</c-> <c- s>Main button</c->
-}
+<pre class="highlight">ok-button
+<c- o>=</c-><c- s>========</c->
+<c- e>content</c-> <c- o>=</c-> <c- s>Click me</c->
+<c- e>title</c-> <c- o>=</c-> <c- s>Title to show on hover</c->
+<c- e>ariaLabel</c-> <c- o>=</c-> <c- s>Main button</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑥">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①④">localization resource</a> file)</p>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①④">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑥">MessageFormat 2.0</a> syntax that is subject to change.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>button</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"ok-button"</c-> <c- p>/></c->
@@ -2345,13 +2352,13 @@ It must be able to negotiate between these two sets to provide an optimal soluti
    <p>There are two ways to approach web components localization.</p>
    <h3 class="heading settled" data-level="9.1" id="using-document-localization-context"><span class="secno">9.1. </span><span class="content">Using Document Localization Context</span><a class="self-link" href="#using-document-localization-context"></a></h3>
    <p>In this model, the web component exposes a set of attributes that are localizable and the document provides the translations out of its own <a data-link-type="dfn" href="#localization-context" id="ref-for-localization-context①⑤">localization context</a>:</p>
-<pre class="highlight">widget1 {
-<c- e>  .content</c-> <c- o>=</c-> <c- s>Click me</c->
-<c- e>  .title</c-> <c- o>=</c-> <c- s>Title to show on hover</c->
-<c- e>  .ariaLabel</c-> <c- o>=</c-> <c- s>Main button</c->
-}
+<pre class="highlight"><c- e>widget1</c->
+<c- o>=</c-><c- s>======</c->
+<c- e>content</c-> <c- o>=</c-> <c- s>Click me</c->
+<c- e>title</c-> <c- o>=</c-> <c- s>Title to show on hover</c->
+<c- e>ariaLabel</c-> <c- o>=</c-> <c- s>Main button</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑦">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑤">localization resource</a> file)</p>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑤">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑦">MessageFormat 2.0</a> syntax that is subject to change.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
   <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
     <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"localization"</c-> <c- e>src</c-><c- o>=</c-><c- s>"uri/for/resource1.mf"</c-> <c- p>/></c->
@@ -2414,12 +2421,12 @@ always safe for trnslator to use at any time.</p>
     <p>A <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html">complete list</a> of text-level elements is defined by WHATWG.</p>
    </blockquote>
    <p>For example, a developer may create a paragraph element such as the following.</p>
-<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-><c- p>></c->Message to be localized.<c- p>&lt;</c-><c- f>p</c-><c- p>></c->
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->Message to be localized.<c- p>&lt;</c-><c- f>p</c-><c- p>></c->
 </pre>
    <p>A translator should be able to provide a translation that contains <a data-link-type="dfn" href="#text-level-elements" id="ref-for-text-level-elements①">text-level elements</a> if desired.</p>
 <pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>This is &lt;em>my&lt;/em> localized message.</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑧">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑦">localization resource</a> file)</p>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑦">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑧">MessageFormat 2.0</a> syntax that is subject to change.</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>p</c-><c- p>></c->This is <c- p>&lt;</c-><c- f>em</c-><c- p>></c->my<c- p>&lt;/</c-><c- f>em</c-><c- p>></c-> localized message.<c- p>&lt;</c-><c- f>p</c-><c- p>></c->
 </pre>
    <p>At which point, the final HTML would be equivalent to the following localized content in which the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-em-element" id="ref-for-the-em-element②">em</a></code> element is interpreted correctly as HTML and rendered accordingly.</p>
@@ -2428,7 +2435,7 @@ always safe for trnslator to use at any time.</p>
     <blockquote>
      <p><b><em><a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements">functional elements</a></em></b></p>
     </blockquote>
-    <p>Functional elements are elements such as <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element" id="ref-for-the-a-element">a</a></code> that may have attributes that the developer
+    <p>Functional elements are elements such as <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element" id="ref-for-the-a-element">a</a></code> that may have attributes for which the developer
 desires a translator to provide localized translations.</p>
    </blockquote>
    <p>For example, a developer may provide an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element②">img</a></code> as a <a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements①">functional element</a> with a <code>src</code> attribute.</p>
@@ -2439,7 +2446,7 @@ desires a translator to provide localized translations.</p>
    <p>A translator should be able to provide an <code>alt</code> attribute for the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element③">img</a></code> element.</p>
 <pre class="highlight"><c- e>key1</c-> <c- o>=</c-> <c- s>Hello, &lt;img l10n-name="world" alt="world">!</c->
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑨">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑧">localization resource</a> file)</p>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑧">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20⑨">MessageFormat 2.0</a> syntax that is subject to change.</p>
    <p>The resulting HTML should look like the following:</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
     Hello, <c- p>&lt;</c-><c- f>img</c-> <c- e>src</c-><c- o>=</c-><c- s>"world.png"</c-> <c- e>alt</c-><c- o>=</c-><c- s>"world"</c-><c- p>></c->!
@@ -2474,7 +2481,7 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
     &lt;li>Localized item 3&lt;/li>
   &lt;/ul>
 </pre>
-   <p class="note" role="note"><span>Note:</span> (this is only pseudo-syntax for <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20①⓪">MessageFormat 2.0</a> compatible <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑨">localization resource</a> file)</p>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource①⑨">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20①⓪">MessageFormat 2.0</a> syntax that is subject to change.</p>
    <p>The resulting HTML should look like the following:</p>
 <pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-><c- p>></c->
     This is a localized list:
@@ -2486,7 +2493,33 @@ can then add <code><a data-link-type="element" href="https://html.spec.whatwg.or
 <c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
 </pre>
    <h3 class="heading settled" data-level="11.1" id="security-considerations"><span class="secno">11.1. </span><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
-   <h4 class="heading settled" data-level="11.1.1" id="vestigial-content-after-retranslation"><span class="secno">11.1.1. </span><span class="content">Vestigial Content After Retranslation</span><a class="self-link" href="#vestigial-content-after-retranslation"></a></h4>
+   <h4 class="heading settled" data-level="11.1.1" id="specify-localizable-attributes-explicitly"><span class="secno">11.1.1. </span><span class="content">Specify Localizable Attributes Explicitly</span><a class="self-link" href="#specify-localizable-attributes-explicitly"></a></h4>
+   <p>With regard to <a data-link-type="dfn" href="#functional-elements" id="ref-for-functional-elements③">functional elements</a>, we may want to adopt an opt-in-only model in which a developer
+must explicitly list which attributes should be localizable.</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>p</c-> <c- e>l10n-id</c-><c- o>=</c-><c- s>"key1"</c-> <c- e>l10n-attrs</c-><c- o>=</c-><c- s>"alt"</c-><c- p>></c->
+    Hi, <c- p>&lt;</c-><c- f>img</c-> <c- e>src</c-><c- o>=</c-><c- s>"world.png"</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>p</c-><c- p>></c->
+</pre>
+   <p>In this model, <code>alt</code> is the only attribute that localizers will be able to modify in translation.</p>
+   <h4 class="heading settled" data-level="11.1.2" id="opaque-elements"><span class="secno">11.1.2. </span><span class="content">Opaque Elements</span><a class="self-link" href="#opaque-elements"></a></h4>
+   <p>Developers should have a means to specify elements that are opaque to localization, whose content cannot
+be modified by translators.</p>
+   <p>Such a syntax could be the following:</p>
+<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>l10n-id-opaque</c-><c- o>=</c-><c- s>"true"</c-><c- p>></c->
+  Always display this sentence.
+<c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+</pre>
+   <h4 class="heading settled" data-level="11.1.3" id="retain-element-identify"><span class="secno">11.1.3. </span><span class="content">Retain Element Identify</span><a class="self-link" href="#retain-element-identify"></a></h4>
+<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>data-l10n-id</c-><c- o>=</c-><c- s>"submit-form"</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>button</c-> <c- e>id</c-><c- o>=</c-><c- s>"submit"</c-><c- p>></c->Submit<c- p>&lt;/</c-><c- f>button</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+</pre>
+<pre class="highlight"><c- e>submit-form</c-> <c- o>=</c-> <c- s>&lt;button>Submit&lt;/button></c->
+</pre>
+   <p class="note" role="note"><span>Note:</span> This represents a <a data-link-type="dfn" href="#localization-resource" id="ref-for-localization-resource②⓪">localization resource</a> file using <a data-link-type="dfn" href="#messageformat-20" id="ref-for-messageformat-20①①">MessageFormat 2.0</a> syntax that is subject to change.</p>
+   <p>Even after multiple retranslations, the identity of the <code>&lt;button></code> element should be the same.
+The element should not be recreated by the localization layer.</p>
+   <h4 class="heading settled" data-level="11.1.4" id="vestigial-content-after-retranslation"><span class="secno">11.1.4. </span><span class="content">Vestigial Content After Retranslation</span><a class="self-link" href="#vestigial-content-after-retranslation"></a></h4>
    <p>DOM Overlays should be designed in a way that it is safe to retranslate content without leaving behind
 a vestige of what was there before. Given that some languages may overlay different HTML elements,
 we need to ensure that when a language changes and content is retranslated, we are able to keep track of
@@ -2824,6 +2857,7 @@ and remove all content that existed due to the previous translation.</p>
     <li><a href="#ref-for-localization-resource①⑤">9.1. Using Document Localization Context</a>
     <li><a href="#ref-for-localization-resource①⑥">9.2. Using its own Localization Context</a>
     <li><a href="#ref-for-localization-resource①⑦">11. DOM Overlays</a> <a href="#ref-for-localization-resource①⑧">(2)</a> <a href="#ref-for-localization-resource①⑨">(3)</a>
+    <li><a href="#ref-for-localization-resource②⓪">11.1.3. Retain Element Identify</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="message">
@@ -2849,6 +2883,7 @@ and remove all content that existed due to the previous translation.</p>
    <b><a href="#functional-elements">#functional-elements</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-functional-elements">11. DOM Overlays</a> <a href="#ref-for-functional-elements①">(2)</a> <a href="#ref-for-functional-elements②">(3)</a>
+    <li><a href="#ref-for-functional-elements③">11.1.1. Specify Localizable Attributes Explicitly</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="structured-elements">
@@ -2867,6 +2902,7 @@ and remove all content that existed due to the previous translation.</p>
     <li><a href="#ref-for-messageformat-20⑤">8. Attribute Localization</a> <a href="#ref-for-messageformat-20⑥">(2)</a>
     <li><a href="#ref-for-messageformat-20⑦">9.1. Using Document Localization Context</a>
     <li><a href="#ref-for-messageformat-20⑧">11. DOM Overlays</a> <a href="#ref-for-messageformat-20⑨">(2)</a> <a href="#ref-for-messageformat-20①⓪">(3)</a>
+    <li><a href="#ref-for-messageformat-20①①">11.1.3. Retain Element Identify</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="web-stack">

@@ -71,10 +71,13 @@ Key termoniology used by this specification.
 > e.g. <{ul}>/<{ol}> and <{li}>.
 
 > > <dfn>MessageFormat 2.0</dfn>
->
-> ([link](https://github.com/unicode-org/message-format-wg#messageformat-working-group))
->
 > A new, generic localization system that is being developed for inclusion in Unicode and JavaScript.
+>
+> ([Working Group GitHub](https://github.com/unicode-org/message-format-wg#messageformat-working-group))
+>
+> MessageFormat Syntax in this document is based on the following proposal and is subject to change.
+>
+> [Syntax Proposal](https://github.com/eemeli/message-format-wg/blob/wip/spec-syntax.md)
 
 > > <dfn>web stack</dfn>
 >
@@ -156,7 +159,7 @@ Assume a document is constructed with a [=localization context=] that contains [
 key1 = Document Header
 </xmp>
 
-Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
 A document with such a context can then be declaratively written to localize HTML content by augmenting elements with [=localization identifiers=].
 
@@ -177,10 +180,10 @@ The second proposed core attribute is a collection of values, similar to {{datas
 the [=localization context=] for use when resolving a [=message=]:
 
 <xmp highlight="properties">
-greetings-msg = Welcome, { $userName }.
+greetings-msg = Welcome, {$userName}.
 </xmp>
 
-Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
 <xmp highlight="html">
 <html>
@@ -266,14 +269,14 @@ HTML and Web Components provide elements with translatable attributes such as {{
 It may be possible to use [=MessageFormat 2.0=] concept of localization groups to cluster a number of localization [=messages=] into a group that will be used to declaratively localize an HTML element and its attributes together:
 
 <xmp highlight="properties">
-ok-button {
-  .content = Click me
-  .title = Title to show on hover
-  .ariaLabel = Main button
-}
+ok-button
+=========
+content = Click me
+title = Title to show on hover
+ariaLabel = Main button
 </xmp>
 
-Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
 <xmp highlight="html">
 <html>
@@ -296,14 +299,14 @@ There are two ways to approach web components localization.
 In this model, the web component exposes a set of attributes that are localizable and the document provides the translations out of its own [=localization context=]:
 
 <xmp highlight="properties">
-widget1 {
-  .content = Click me
-  .title = Title to show on hover
-  .ariaLabel = Main button
-}
+widget1
+=======
+content = Click me
+title = Title to show on hover
+ariaLabel = Main button
 </xmp>
 
-Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
 <xmp highlight="html">
 <html>
@@ -373,7 +376,7 @@ We propose that there should exists three categories of overlay elements:
 For example, a developer may create a paragraph element such as the following.
 
 <xmp highlight="html">
-<p>Message to be localized.<p>
+<p l10n-id="key1">Message to be localized.<p>
 </xmp>
 
 A translator should be able to provide a translation that contains [=text-level elements=] if desired.
@@ -382,7 +385,7 @@ A translator should be able to provide a translation that contains [=text-level 
 key1 = This is <em>my</em> localized message.
 </xmp>
 
-Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
 <xmp highlight="html">
 <p>This is <em>my</em> localized message.<p>
@@ -394,7 +397,7 @@ At which point, the final HTML would be equivalent to the following localized co
 
 > > <b><em>[=functional elements=]</em></b>
 >
-> Functional elements are elements such as <{img}> and <{a}> that may have attributes that the developer
+> Functional elements are elements such as <{img}> and <{a}> that may have attributes for which the developer
 > desires a translator to provide localized translations.
 
 For example, a developer may provide an <{img}> as a [=functional element=] with a `src` attribute.
@@ -411,7 +414,7 @@ A translator should be able to provide an `alt` attribute for the <{img}> elemen
 key1 = Hello, <img l10n-name="world" alt="world">!
 </xmp>
 
-Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
 The resulting HTML should look like the following:
 
@@ -456,7 +459,7 @@ key1 = This is a localized list:
   </ul>
 </xmp>
 
-Note: (this is only pseudo-syntax for [=MessageFormat 2.0=] compatible [=localization resource=] file)
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
 The resulting HTML should look like the following:
 
@@ -472,6 +475,49 @@ The resulting HTML should look like the following:
 </xmp>
 
 ## Security Considerations
+
+### Specify Localizable Attributes Explicitly
+
+With regard to [=functional elements=], we may want to adopt an opt-in-only model in which a developer
+must explicitly list which attributes should be localizable.
+
+<xmp highlight="html">
+    <p l10n-id="key1" l10n-attrs="alt">
+        Hi, <img src="world.png">
+    </p>
+</xmp>
+
+In this model, `alt` is the only attribute that localizers will be able to modify in translation.
+
+### Opaque Elements
+
+Developers should have a means to specify elements that are opaque to localization, whose content cannot
+be modified by translators.
+
+Such a syntax could be the following:
+
+<xmp highlight="html">
+    <div l10n-id-opaque="true">
+      Always display this sentence.
+    </div>
+</xmp>
+
+### Retain Element Identify
+
+<xmp highlight="html">
+<div data-l10n-id="submit-form">
+  <button id="submit">Submit</button>
+</div>
+</xmp>
+
+<xmp highlight="properties">
+submit-form = <button>Submit</button>
+</xmp>
+
+Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
+
+Even after multiple retranslations, the identity of the `<button>` element should be the same.
+The element should not be recreated by the localization layer.
 
 ### Vestigial Content After Retranslation
 
