@@ -1269,7 +1269,7 @@ Possible extra rowspan handling
 	ul.index ul,
 	ul.index dl { font-size: smaller; }
 	@media not print {
-		ul.index li a + span {
+		ul.index li span:not(.dfn-paneled) {
 			white-space: nowrap;
 			color: transparent; }
 		ul.index li a:hover + span,
@@ -1489,6 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://nordzilla.github.io/dom-l10n-draft-spec/" rel="canonical">
+  <meta content="4a6fa2321aa1a37da3849d678630d904968cf831" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2060,9 +2061,11 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://nordzilla.github.io/dom-l10n-draft-spec/">https://nordzilla.github.io/dom-l10n-draft-spec/</a>
+     <dt>Issue Tracking:
+     <dd><a href="https://github.com/zbraniecki/dom-l10n-draft-spec/issues/">GitHub</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/nordzilla">Erik Nordin</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:nordzilla@mozilla.com">nordzilla@mozilla.com</a>
-     <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/zbraniecki">Zibi Braniecki</a> (<a class="p-org org" href="https://www.mozilla.org/">Mozilla</a>) <a class="u-email email" href="mailto:zbraniecki@mozilla.com">zbraniecki@mozilla.com</a>
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-url url" href="https://github.com/zbraniecki">Zibi Braniecki</a> (<a class="p-org org" href="https://www.unicode.org/">Unicode</a>) <a class="u-email email" href="mailto:zibi@unicode.org">zibi@unicode.org</a>
     </dl>
    </div>
    <div data-fill-with="warning"></div>

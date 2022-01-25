@@ -6,7 +6,7 @@ Status: DREAM
 Group: MOZILLA
 URL: https://nordzilla.github.io/dom-l10n-draft-spec/
 Editor: Erik Nordin, Mozilla https://www.mozilla.org/, nordzilla@mozilla.com, https://github.com/nordzilla
-Editor: Zibi Braniecki, Mozilla https://www.mozilla.org/, zbraniecki@mozilla.com, https://github.com/zbraniecki
+Editor: Zibi Braniecki, Unicode https://www.unicode.org/, zibi@unicode.org, https://github.com/zbraniecki
 Abstract: This draft defines a proposal for a web standard for DOM localization. DOM localization is a system that allows authors and users to attach [=localization resources=] to structured documents (e.g., HTML documents). By separating the [=localization resources=] of documents from the structure, presentation and content, DOM localization enables Web applications to be localizable.
 Markup Shorthands: css yes, markdown yes
 </pre>
