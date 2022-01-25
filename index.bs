@@ -86,7 +86,7 @@ Key termoniology used by this specification.
 Introduction {#intro}
 =====================
 
-Note: Many of the ideas expressed in this proposal are inspired by [projectfluent](https://github.com/projectfluent/).
+Note: Many of the ideas expressed in this proposal are inspired by [Project Fluent](https://github.com/projectfluent/).
 
 The [=web stack=] is commonly used to create applications with both content and user interface. One of the core value propositions of the stack is the open, semantic and pluggable nature of the technology.
 
@@ -112,6 +112,8 @@ The proposed solution provides cohesive developer experience between DOM and Jav
 We propose to introduce a notion of a [=localization context=], similar to JavaScript document context, or CSS stylesheet, which would be composed of a list of [=localization resources=] declared in the <{head}> of the document.
 
 Similar to stylesheets, developers will be able to programmatically construct any number of [=localization contexts=], as well as declaratively define them for HTML documents, shadow DOM trees etc.
+
+The [=localization context=] will likely be an abstraction built upon the [Intl.MessageFormat](https://github.com/dminor/proposal-intl-messageformat) object, which will be specified by [=MessageFormat 2.0=].
 
 ### Document Localization Context
 
@@ -166,7 +168,7 @@ A document with such a context can then be declaratively written to localize HTM
 <xmp highlight="html">
 <html>
   <body>
-    <h1 l10n-id="key1" />
+    <h1 l10n-id="key1"></h1>
   </body>
 </html>
 </xmp>
@@ -174,13 +176,23 @@ A document with such a context can then be declaratively written to localize HTM
 If a [=localization identifier's=] value matches a [=message=] contained within the document's [=localization context=], then the element to which the
 identifier belongs will be localized accordingly.
 
+The above example would produce the following HTML after translation.
+
+<xmp highlight="html">
+<html>
+  <body>
+    <h1 l10n-id="key1">Document Header</h1>
+  </body>
+</html>
+</xmp>
+
 ### Localization Arguments
 
 The second proposed core attribute is a collection of values, similar to {{dataset}}. The [=localization arguments=] contain variables passed from the developer to
 the [=localization context=] for use when resolving a [=message=]:
 
 <xmp highlight="properties">
-greetings-msg = Welcome, {$userName}.
+greetings_msg = Welcome, {$userName}.
 </xmp>
 
 Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
@@ -188,13 +200,23 @@ Note: This represents a [=localization resource=] file using [=MessageFormat 2.0
 <xmp highlight="html">
 <html>
   <body>
-    <h1 l10n-id="greetings-msg" l10n-args='{"userName":"John"}'/>
+    <h1 l10n-id="greetings_msg" l10n-args="userName: John"></h1>
   </body>
 </html>
 </xmp>
 
 The ability to provide a document with a [=localization context=], in addition to the ability to declaratively annotate elements and fragments
 within the document, provides a basis of the DOM localization system.
+
+The above example would produce the following HTML after translation.
+
+<xmp highlight="html">
+<html>
+  <body>
+    <h1 l10n-id="greetings_msg" l10n-args="userName: John">Welcome, John</h1>
+  </body>
+</html>
+</xmp>
 
 # DOM API
 
@@ -204,7 +226,7 @@ The main paradigm is a declarative annotation of elements, much like `class` is 
 
 <xmp highlight="js">
 let h1 = document.querySelector("h1");
-h1.l10n.setAttributes("greetings-msg", { userName: "John" });
+h1.l10n.setAttributes("greetings_msg", { userName: "John" });
 </xmp>
 
 This separates the programmatic annotation of the DOM tree with localization bindings, from the application of the localization, which can happen asynchornously and be synced to animation and paint frames.
@@ -212,7 +234,7 @@ This separates the programmatic annotation of the DOM tree with localization bin
 In cases where the developer needs to operate on localization [=messages=] programmatically, users can access the main document's context to format a [=message=]:
 
 <xmp highlight="js">
-let msg = await document.l10n.formatMessage("greetings-msg", {
+let msg = await document.l10n.formatMessage("greetings_msg", {
   userName: "Mary",
 });
 </xmp>
@@ -257,7 +279,7 @@ let ctx = new LocalizationContext([
   "uri/for/res1.mf",
   "uri/for/res2.mf",
 ]);
-let msg = await ctx.formatMessage("greetings-msg", {
+let msg = await ctx.formatMessage("greetings_msg", {
   userName: "Mary",
 });
 </xmp>
@@ -269,7 +291,7 @@ HTML and Web Components provide elements with translatable attributes such as {{
 It may be possible to use [=MessageFormat 2.0=] concept of localization groups to cluster a number of localization [=messages=] into a group that will be used to declaratively localize an HTML element and its attributes together:
 
 <xmp highlight="properties">
-ok-button
+ok_button
 =========
 content = Click me
 title = Title to show on hover
@@ -281,7 +303,7 @@ Note: This represents a [=localization resource=] file using [=MessageFormat 2.0
 <xmp highlight="html">
 <html>
   <body>
-    <button l10n-id="ok-button" />
+    <button l10n-id="ok_button"></button>
   </body>
 </html>
 </xmp>
@@ -289,6 +311,16 @@ Note: This represents a [=localization resource=] file using [=MessageFormat 2.0
 Such atomic binding between a UI widget and a composed localization unit would be particularly useful for localization of Web Components where rich set of attributes could be used to carry localization [=messages=] across the boundary from the document to shadow DOM.
 
 Such binding would also enable locale consistency for the whole UI element ensuring that content and attributes of each element are localized into the same locale, be it primary, or any fallback.
+
+The above example would produce the following HTML after translation.
+
+<xmp highlight="html">
+<html>
+  <body>
+    <button l10n-id="ok_button" title="Title to show on hover" aria-label="Main button">Click me</button>
+  </body>
+</html>
+</xmp>
 
 # Web Components
 
@@ -303,7 +335,7 @@ widget1
 =======
 content = Click me
 title = Title to show on hover
-ariaLabel = Main button
+ariaLabel = Main widget
 </xmp>
 
 Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
@@ -316,6 +348,20 @@ Note: This represents a [=localization resource=] file using [=MessageFormat 2.0
   </head>
   <body>
     <my-widget l10n-id="widget1"/>
+  </body>
+</html>
+</xmp>
+
+The above example would produce the following HTML after translation.
+
+<xmp highlight="html">
+<html>
+  <head>
+    <link rel="localization" src="uri/for/resource1.mf" />
+    <link rel="localization" src="uri/for/resource2.mf" />
+  </head>
+  <body>
+    <my-widget l10n-id="widget1" title="Title to show on hover" aria-label="Main widget">Click me</my-widget>
   </body>
 </html>
 </xmp>
@@ -351,7 +397,7 @@ From the moment `connectRoot` is called for the given element, any changes to th
 
 # DOM Overlays
 
-> Note: Many of the core ideas discussed in this section are inspired by [projectfluent](https://projectfluent.org/), particularly the following two sources:
+> Note: Many of the core ideas discussed in this section are inspired by [Project Fluent](https://projectfluent.org/), particularly the following two sources:
 >
 > * The [DOM Overlays wiki](https://github.com/projectfluent/fluent.js/wiki/DOM-Overlays), written by Staś Małolepszy.
 > * The ideas for [New Features (rev 3)](https://github.com/zbraniecki/fluent-domoverlays-js/wiki/New-Features-%28rev-3%29), written by Zibi Braniecki
@@ -416,7 +462,7 @@ key1 = Hello, <img l10n-name="world" alt="world">!
 
 Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
-The resulting HTML should look like the following:
+The above example would produce the following HTML after translation.
 
 <xmp highlight="html">
     <p l10n-id="key1">
@@ -461,7 +507,7 @@ key1 = This is a localized list:
 
 Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
 
-The resulting HTML should look like the following:
+The above example would produce the following HTML after translation.
 
 <xmp highlight="html">
     <div l10n-id="key1">
@@ -489,15 +535,14 @@ must explicitly list which attributes should be localizable.
 
 In this model, `alt` is the only attribute that localizers will be able to modify in translation.
 
-### Opaque Elements
+### Disabling Translation
 
-Developers should have a means to specify elements that are opaque to localization, whose content cannot
-be modified by translators.
+Developers should have a means to enforce that elements should not be translated.
 
-Such a syntax could be the following:
+This should be expressed with [translate](https://www.w3.org/TR/2017/NOTE-its2req-20170302/#translate) attribute specified by ITS.
 
 <xmp highlight="html">
-    <div l10n-id-opaque="true">
+    <div translate="no">
       Always display this sentence.
     </div>
 </xmp>
@@ -511,7 +556,7 @@ Such a syntax could be the following:
 </xmp>
 
 <xmp highlight="properties">
-submit-form = <button>Submit</button>
+submit_form = <button>Submit</button>
 </xmp>
 
 Note: This represents a [=localization resource=] file using [=MessageFormat 2.0=] syntax that is subject to change.
